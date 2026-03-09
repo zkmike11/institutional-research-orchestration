@@ -1,0 +1,38 @@
+.wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg-card);
+  white-space: nowrap;
+}
+
+.table thead th.right {
+  text-align: right;
+}
+
+.table thead th.percentHeader {
+  text-align: right;
+  min-width: 72px;
+}
+
+.addRow {
+  border-bottom: none !important;
+}

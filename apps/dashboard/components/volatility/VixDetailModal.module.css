@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chartContainer {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: 16px;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-size: 0.8125rem;
+  color: var(--fg-secondary);
+}
+
+.description {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--fg-secondary);
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}

@@ -1,0 +1,87 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--fg-secondary);
+}
+
+.filterInput {
+  width: 240px;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  overflow: hidden;
+}
+
+.article {
+  display: block;
+  padding: 14px var(--card-padding);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.15s ease;
+}
+
+.article:last-child {
+  border-bottom: none;
+}
+
+.article:hover {
+  background-color: var(--bg-hover);
+}
+
+.articleContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.articleTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+}
+
+.publisher {
+  font-weight: 500;
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.time {
+  white-space: nowrap;
+}
+
+.tickers {
+  color: var(--accent);
+  font-weight: 500;
+}

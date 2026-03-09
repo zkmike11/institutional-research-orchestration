@@ -1,0 +1,73 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--fg-secondary);
+}
+
+.addForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input {
+  width: 180px;
+}
+
+.addBtn {
+  background-color: var(--accent);
+  color: var(--fg);
+  border: none;
+}
+
+.addBtn:hover {
+  background-color: var(--accent-hover);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+}
+
+.symbol {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.name {
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sector {
+  color: var(--fg-secondary);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.numCol {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

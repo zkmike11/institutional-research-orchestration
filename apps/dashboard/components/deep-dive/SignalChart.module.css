@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: var(--card-padding);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--fg);
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+}
+
+.value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.chartArea {
+  display: flex;
+  justify-content: center;
+}

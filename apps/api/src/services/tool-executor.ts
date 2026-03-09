@@ -1,0 +1,142 @@
+import { defillamaClient } from "../integrations/defillama.js";
+import { coingeckoClient } from "../integrations/coingecko.js";
+import { snapshotClient } from "../integrations/snapshot.js";
+import { discourseClient } from "../integrations/discourse.js";
+import { etherscanClient } from "../integrations/etherscan.js";
+import { db, schema } from "../db/index.js";
+import { ilike, or, desc, eq } from "drizzle-orm";
+
+type ToolFn = (args: Record<string, any>) => Promise<any>;
+
+const tools: Record<string, ToolFn> = {
+  // DeFi Data tools
+  resolve_protocol: async ({ protocol_name }) => {
+    const llama = await defillamaClient.getProtocol(protocol_name);
+    const gecko = await coingeckoClient.search(protocol_name);
+    return { defillama: llama, coingecko: gecko };
+  },
+  protocol_snapshot: async ({ protocol_id }) => defillamaClient.getProtocol(protocol_id),
+  revenue_data: async ({ protocol_id }) => defillamaClient.getFees(protocol_id),
+  valuation_multiples: async ({ protocol_id }) => {
+    const fees = await defillamaClient.getFees(protocol_id);
+    const token = await coingeckoClient.getCoin(protocol_id);
+    return { fees, token };
+  },
+  token_unlocks: async ({ protocol_id }) => coingeckoClient.getCoin(protocol_id),
+  compare_protocols: async ({ protocol_ids }) => {
+    const results = await Promise.all(
+      (protocol_ids as string[]).map((id) => defillamaClient.getProtocol(id))
+    );
+    return results;
+  },
+  tvl_data: async ({ protocol_id }) => defillamaClient.getTvl(protocol_id),
+  fee_data: async ({ protocol_id }) => defillamaClient.getFees(protocol_id),
+  token_price: async ({ token_id }) => coingeckoClient.getPrice(token_id),
+  token_info: async ({ token_id }) => coingeckoClient.getCoin(token_id),
+  market_data: async ({ token_id }) => coingeckoClient.getCoin(token_id),
+  dex_volume: async ({ protocol_id }) => defillamaClient.getVolume(protocol_id),
+  yield_data: async ({ protocol_id }) => defillamaClient.getYields(protocol_id),
+  stablecoin_data: async ({ protocol_id }) => defillamaClient.getStablecoins(),
+  chain_tvl: async ({ chain }) => defillamaClient.getChainTvl(chain),
+  protocol_list: async ({ category }) => defillamaClient.getProtocols(),
+
+  // Governance tools
+  search_spaces: async ({ query }) => snapshotClient.searchSpaces(query),
+  detect_governance: async ({ protocol_name }) => {
+    const spaces = await snapshotClient.searchSpaces(protocol_name);
+    return { snapshot: spaces, forum_url: `https://governance.${protocol_name}.com` };
+  },
+  snapshot_proposals: async ({ space_id, limit }) => snapshotClient.getProposals(space_id, limit),
+  snapshot_votes: async ({ proposal_id }) => snapshotClient.getVotes(proposal_id),
+  snapshot_voters: async ({ space_id }) => snapshotClient.getVoters(space_id),
+  governance_health: async ({ space_id }) => snapshotClient.getSpaceHealth(space_id),
+  voting_power: async ({ space_id }) => snapshotClient.getVotingPower(space_id),
+  delegate_info: async ({ space_id }) => snapshotClient.getDelegates(space_id),
+  proposal_pipeline: async ({ space_id }) => snapshotClient.getProposals(space_id, 20),
+  forum_posts: async ({ forum_url, category }) => discourseClient.getPosts(forum_url, category),
+  forum_search: async ({ forum_url, query }) => discourseClient.search(forum_url, query),
+  governance_score: async ({ space_id }) => {
+    const health = await snapshotClient.getSpaceHealth(space_id);
+    return { score: health.score, details: health };
+  },
+
+  // On-Chain tools
+  contract_info: async ({ address, chain }) => etherscanClient.getContractInfo(address),
+  token_holders: async ({ address, chain }) => etherscanClient.getTokenHolders(address),
+  transaction_history: async ({ address, limit }) => etherscanClient.getTransactions(address, limit),
+  contract_verified: async ({ address }) => etherscanClient.isVerified(address),
+  token_transfers: async ({ address, limit }) => etherscanClient.getTokenTransfers(address, limit),
+  gas_usage: async ({ address }) => etherscanClient.getGasUsage(address),
+  audit_status: async ({ protocol_name }) => ({ note: "Check GitHub for audit reports", protocol: protocol_name }),
+
+  // Research tools (Postgres-backed)
+  search_memos: async ({ query }) => {
+    const rows = await db
+      .select()
+      .from(schema.reports)
+      .where(or(ilike(schema.reports.protocolName, `%${query}%`), ilike(schema.reports.recommendation, `%${query}%`)))
+      .orderBy(desc(schema.reports.createdAt))
+      .limit(10);
+    return rows.map((r) => ({ id: r.id, protocol: r.protocolName, recommendation: r.recommendation, date: r.createdAt }));
+  },
+  search_learnings: async ({ query }) => {
+    const rows = await db
+      .select()
+      .from(schema.learnings)
+      .where(or(ilike(schema.learnings.content, `%${query}%`), ilike(schema.learnings.category, `%${query}%`)))
+      .orderBy(desc(schema.learnings.createdAt))
+      .limit(10);
+    return rows;
+  },
+  protocol_news: async ({ protocol_name }) => {
+    return { note: "Fetched from Discourse forums and aggregators", protocol: protocol_name };
+  },
+  save_memo: async ({ memo_data }) => {
+    const [row] = await db.insert(schema.reports).values(memo_data).returning();
+    return row;
+  },
+  save_learning: async ({ learning_data }) => {
+    const [row] = await db.insert(schema.learnings).values(learning_data).returning();
+    return row;
+  },
+  get_portfolio: async () => {
+    return db.select().from(schema.portfolio);
+  },
+  fund_thesis: async () => {
+    const [row] = await db.select().from(schema.fundConfig).where(eq(schema.fundConfig.key, "fund_thesis"));
+    return row?.value || {};
+  },
+  search_reports: async ({ query }) => {
+    const rows = await db
+      .select()
+      .from(schema.reports)
+      .where(ilike(schema.reports.protocolName, `%${query}%`))
+      .limit(10);
+    return rows;
+  },
+  get_mandate: async () => {
+    const [row] = await db.select().from(schema.fundConfig).where(eq(schema.fundConfig.key, "mandate_constraints"));
+    return row?.value || {};
+  },
+};
+
+export async function executeTool(name: string, args: Record<string, any>): Promise<any> {
+  const fn = tools[name];
+  if (!fn) throw new Error(`Unknown tool: ${name}`);
+
+  const start = Date.now();
+  try {
+    const result = await fn(args);
+    return result;
+  } catch (error: any) {
+    throw error;
+  }
+}
+
+export function getToolDefinitions() {
+  return Object.keys(tools).map((name) => ({
+    name,
+    description: `Execute the ${name} tool`,
+    input_schema: { type: "object" as const, properties: {} },
+  }));
+}

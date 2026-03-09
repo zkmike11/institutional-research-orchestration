@@ -1,0 +1,46 @@
+export const SIGNAL_RATIOS = [
+  {
+    name: "Copper / Gold",
+    subtitle: "Reflation vs deflation gauge",
+    numerator: "HG=F",
+    denominator: "GC=F",
+    color: "#f59e0b",
+  },
+  {
+    name: "AUD/JPY",
+    subtitle: "Global risk appetite proxy",
+    numerator: "AUDJPY=X",
+    denominator: null,
+    color: "#60a5fa",
+  },
+  {
+    name: "HYG / IEI",
+    subtitle: "Credit spread signal",
+    numerator: "HYG",
+    denominator: "IEI",
+    color: "#22c55e",
+  },
+  {
+    name: "TIP / IEF",
+    subtitle: "Inflation breakeven proxy",
+    numerator: "TIP",
+    denominator: "IEF",
+    color: "#f87171",
+  },
+  {
+    name: "DXY (inv) + ACWI",
+    subtitle: "Dollar liquidity vs global equities",
+    numerator: "ACWI",
+    denominator: "DX-Y.NYB",
+    color: "#60a5fa",
+    secondaryColor: "#d946ef",
+    isDualLine: true,
+  },
+  {
+    name: "VIX / MOVE",
+    subtitle: "Equity vol vs bond vol",
+    numerator: "^VIX",
+    denominator: "TLT",
+    color: "#9ca3af",
+  },
+] as const;

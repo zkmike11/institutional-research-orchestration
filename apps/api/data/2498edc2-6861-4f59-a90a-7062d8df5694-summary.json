@@ -1,0 +1,290 @@
+{
+  "protocolName": "Hyperliquid",
+  "reviewId": "2498edc2-6861-4f59-a90a-7062d8df5694",
+  "gatheredAt": "2026-03-08T21:17:54.446Z",
+  "identity": {
+    "name": "Hyperliquid",
+    "category": null,
+    "chains": [],
+    "description": "Hyperliquid is a performant L1 optimized from the ground up. The vision is a fully onchain open financial system with user built applications interfacing with performant native components, all without compromising end user experience. \r\n\r\nThe Hyperliquid L1 is performant enough to operate an entire ecosystem of permissionless financial applications – every order, cancel, trade, and liquidation happens transparently on-chain with block latency &lt;1 second. The chain currently supports 100k order",
+    "coingeckoId": "hyperliquid",
+    "symbol": "HYPE",
+    "marketCapRank": 16,
+    "links": {
+      "website": "https://hyperliquid.xyz/",
+      "twitter": "HyperliquidX",
+      "github": null
+    }
+  },
+  "financials": {
+    "price": 30.71,
+    "priceChange24h": 2.10235,
+    "priceChange30d": -7.54644,
+    "ath": 59.3,
+    "athDate": "2025-09-18T03:30:30.650Z",
+    "marketCap": 7342623479,
+    "fdv": 29639476116,
+    "volume24h": 136706742,
+    "circulatingSupply": 238385315.9541414,
+    "maxSupply": 1000000000,
+    "totalSupply": 962274028.9541414
+  },
+  "tvl": {
+    "current": 4419504894,
+    "oneMonthAgo": 4194050938,
+    "threeMonthsAgo": 4464664376,
+    "oneYearAgo": 2604571766,
+    "change30d": "5.4%",
+    "change1y": "69.7%"
+  },
+  "fees": {
+    "fees24h": null,
+    "fees7d": null,
+    "fees30d": null,
+    "revenue24h": null,
+    "revenue30d": null,
+    "revenueAnnualized": null
+  },
+  "valuation": {
+    "feesData": {
+      "fees24h": null,
+      "fees7d": null,
+      "revenue24h": null
+    }
+  },
+  "tokenomics": {
+    "circulatingSupply": 238385315.9541414,
+    "maxSupply": 1000000000,
+    "circulatingPct": "23.8%",
+    "unlockData": null
+  },
+  "governance": {
+    "proposals": [],
+    "topVoters": [],
+    "totalVP": null,
+    "topVoterPct": null,
+    "top5Pct": null,
+    "score": null,
+    "health": null
+  },
+  "community": {
+    "forumTopics": [],
+    "forumSearchResults": [],
+    "news": "Fetched from Discourse forums and aggregators"
+  },
+  "competitive": {
+    "peers": [
+      {
+        "name": "Hyperliquid",
+        "tvl": 4419504894,
+        "mcap": 7345238922.1970005
+      },
+      {
+        "name": "Compound V3",
+        "tvl": 1274897169,
+        "mcap": null
+      },
+      {
+        "name": "Morpho",
+        "tvl": 6954355080,
+        "mcap": 1055412689.2834179
+      },
+      {
+        "name": "Spark",
+        "tvl": 4694407037.9585495,
+        "mcap": 48911173.04558109
+      }
+    ],
+    "sectorProtocols": [
+      {
+        "name": "Binance CEX",
+        "tvl": 147533992088.1393
+      },
+      {
+        "name": "Aave V3",
+        "tvl": 26224917018.601048
+      },
+      {
+        "name": "OKX",
+        "tvl": 19018806645.720333
+      },
+      {
+        "name": "Lido",
+        "tvl": 18105723729.970825
+      },
+      {
+        "name": "Bitfinex",
+        "tvl": 16427319391.70649
+      },
+      {
+        "name": "Bybit",
+        "tvl": 15210331029.100231
+      },
+      {
+        "name": "SSV Network",
+        "tvl": 12828248503.450329
+      },
+      {
+        "name": "Robinhood",
+        "tvl": 12078000314.424366
+      },
+      {
+        "name": "EigenCloud",
+        "tvl": 8742280357.389402
+      },
+      {
+        "name": "WBTC",
+        "tvl": 7926962268.35017
+      }
+    ]
+  },
+  "portfolio": {
+    "fundThesis": {
+      "name": "Markets, Inc.",
+      "focus": [
+        "DeFi",
+        "Governance Activism",
+        "Value Investing"
+      ],
+      "thesis": "The most undervalued assets in crypto are not the newest or the loudest — they are the protocols with strong economic engines trapped behind weak governance. We target Phase 2-3 protocols where governance activism can unlock trapped value through fee switches, buybacks, revenue alignment, and token economics restructuring."
+    },
+    "mandate": {
+      "max_position_count": 20,
+      "min_position_count": 5,
+      "governance_risk_cap": "3% NAV for CRITICAL governance risk",
+      "max_single_position": 0.15,
+      "max_valuation_multiple": 50,
+      "max_sector_concentration": 0.4
+    },
+    "currentPositions": [],
+    "priorMemos": [],
+    "learnings": []
+  },
+  "dataCompleteness": {
+    "total": 30,
+    "succeeded": 25,
+    "failed": 5,
+    "tools": [
+      {
+        "name": "resolve_protocol",
+        "success": true
+      },
+      {
+        "name": "search_memos",
+        "success": true
+      },
+      {
+        "name": "search_learnings",
+        "success": true
+      },
+      {
+        "name": "fund_thesis",
+        "success": true
+      },
+      {
+        "name": "get_mandate",
+        "success": true
+      },
+      {
+        "name": "protocol_snapshot",
+        "success": true
+      },
+      {
+        "name": "revenue_data",
+        "success": true
+      },
+      {
+        "name": "token_price",
+        "success": true
+      },
+      {
+        "name": "token_info",
+        "success": true
+      },
+      {
+        "name": "fee_data",
+        "success": true
+      },
+      {
+        "name": "tvl_data",
+        "success": true
+      },
+      {
+        "name": "market_data",
+        "success": true
+      },
+      {
+        "name": "valuation_multiples",
+        "success": true
+      },
+      {
+        "name": "token_unlocks",
+        "success": false
+      },
+      {
+        "name": "dex_volume",
+        "success": true
+      },
+      {
+        "name": "yield_data",
+        "success": true
+      },
+      {
+        "name": "stablecoin_data",
+        "success": true
+      },
+      {
+        "name": "detect_governance",
+        "success": false
+      },
+      {
+        "name": "search_spaces",
+        "success": false
+      },
+      {
+        "name": "snapshot_proposals",
+        "success": true
+      },
+      {
+        "name": "snapshot_voters",
+        "success": true
+      },
+      {
+        "name": "governance_health",
+        "success": false
+      },
+      {
+        "name": "voting_power",
+        "success": true
+      },
+      {
+        "name": "governance_score",
+        "success": false
+      },
+      {
+        "name": "forum_posts",
+        "success": true
+      },
+      {
+        "name": "forum_search",
+        "success": true
+      },
+      {
+        "name": "protocol_news",
+        "success": true
+      },
+      {
+        "name": "compare_protocols",
+        "success": true
+      },
+      {
+        "name": "protocol_list",
+        "success": true
+      },
+      {
+        "name": "get_portfolio",
+        "success": true
+      }
+    ]
+  }
+}

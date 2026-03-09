@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: var(--card-padding);
+}
+
+.header {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}

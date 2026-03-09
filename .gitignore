@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+dist/
+*.tsbuildinfo
+.turbo/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Raw API data (large files, 50-100MB each)
+# Keep memos (.md) and summaries (-summary.json) only
+apps/api/data/*.json
+!apps/api/data/*-summary.json
+
+# Private design reference assets
+reference-images/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Bun
+bun.lockb
+
+# Editor
+.vscode/
+.idea/

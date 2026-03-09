@@ -1,0 +1,68 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.navList {
+  list-style: none;
+  padding: 12px 0;
+  margin: 0;
+}
+
+.sectionDivider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 16px;
+}
+
+.sectionLabel {
+  padding: 8px 16px 4px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 0.8125rem;
+  color: var(--fg-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navItem:hover {
+  background-color: var(--bg-hover);
+  color: var(--fg);
+}
+
+.navItem.active {
+  background-color: var(--bg-hover);
+  color: var(--fg);
+  border-left-color: var(--accent);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.label {
+  white-space: nowrap;
+}

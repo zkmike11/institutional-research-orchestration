@@ -1,0 +1,33 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: var(--card-padding);
+  position: relative;
+}
+
+.chartWrap {
+  width: 100%;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.message {
+  font-size: 0.8125rem;
+  color: var(--fg-secondary);
+  text-align: center;
+}
+
+.currentSpread {
+  position: absolute;
+  right: 20px;
+  bottom: 40px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

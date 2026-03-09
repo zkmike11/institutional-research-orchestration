@@ -1,0 +1,55 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.minusBtn,
+.plusBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.minusBtn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.minusBtn:hover {
+  background: #dc2626;
+}
+
+.plusBtn {
+  background: var(--fg-secondary);
+  color: var(--bg);
+}
+
+.plusBtn:hover {
+  background: var(--fg);
+}
+
+.dateInput {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-secondary);
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  font-family: inherit;
+  color-scheme: dark;
+  height: 28px;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: var(--accent);
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@committee/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "db:migrate": "bun run src/db/migrate.ts",
+    "db:seed": "bun run src/db/seed.ts",
+    "review:gather": "bun run src/cli/gather-data.ts",
+    "review:summarize": "bun run src/cli/summarize-data.ts",
+    "review:save": "bun run src/cli/save-memo.ts",
+    "review:research": "bun run src/cli/deep-research.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@committee/shared": "workspace:*",
+    "drizzle-orm": "^0.38.0",
+    "hono": "^4.7.0",
+    "postgres": "^3.4.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.30.0",
+    "typescript": "^5.7.0"
+  }
+}

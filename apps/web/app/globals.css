@@ -1,0 +1,478 @@
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --bg: #0a0d16;
+  --bg-card: #12151e;
+  --bg-hover: #1a1d28;
+  --fg: #f0f0f0;
+  --fg-secondary: #979fa7;
+  --border: #1e2230;
+  --border-hover: #2a2f40;
+  --accent: #FD5400;
+  --accent-hover: #e54d00;
+  --accent-blue: #2e90fa;
+  --accent-green: #22c55e;
+  --accent-yellow: #eab308;
+  --accent-red: #ef4444;
+  --accent-orange: #f97316;
+  --muted: #979fa7;
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Container ────────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Badges ───────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badge-buy {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: var(--accent-green);
+}
+
+.badge-watch {
+  background-color: rgba(234, 179, 8, 0.15);
+  color: var(--accent-yellow);
+}
+
+.badge-hold {
+  background-color: rgba(151, 159, 167, 0.12);
+  color: var(--fg-secondary);
+}
+
+.badge-reduce {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: var(--accent-orange);
+}
+
+.badge-exit {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--accent-red);
+}
+
+/* ── Tables ───────────────────────────────────────────────── */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--bg-card);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Clickable Rows ──────────────────────────────────────── */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.clickable-row:hover td {
+  background-color: var(--bg-hover);
+}
+
+/* ── Form Inputs ──────────────────────────────────────────── */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--bg-card);
+  color: var(--fg);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--fg-secondary);
+  opacity: 0.6;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #fff;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Dashboard Sections ──────────────────────────────────── */
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+/* ── Decision Consensus ──────────────────────────────────── */
+.consensus {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--bg-card);
+}
+
+.consensus h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.consensus-stats {
+  color: var(--fg-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.consensus-bar {
+  display: flex;
+  height: 32px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-hover);
+}
+
+.consensus-bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+/* ── Data Source Reliability ──────────────────────────────── */
+.reliability {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--bg-card);
+}
+
+.reliability h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.filter-tab {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  transition: all 0.15s;
+}
+
+.filter-tab:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.filter-tab-active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.filter-tab-active:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.success-good {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.success-warn {
+  color: var(--accent-yellow);
+  font-weight: 600;
+}
+
+.success-bad {
+  color: var(--accent-red);
+  font-weight: 600;
+}
+
+/* ── Empty / Error States ────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--fg-secondary);
+  font-size: 0.875rem;
+}
+
+.error-banner {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  color: var(--fg-secondary);
+  background-color: var(--bg-card);
+}
+
+.error-banner p {
+  margin-bottom: 4px;
+}
+
+.error-banner .error-hint {
+  font-size: 0.8125rem;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Memo Body ───────────────────────────────────────────── */
+.memo-body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--fg);
+}
+
+/* ── Memo Headings ───────────────────────────────────────── */
+.memo-body h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 80px;
+}
+
+.memo-body h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+/* ── Memo Paragraphs ─────────────────────────────────────── */
+.memo-body p {
+  margin-bottom: 16px;
+}
+
+/* ── Memo Lists ──────────────────────────────────────────── */
+.memo-body ul,
+.memo-body ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.memo-body li {
+  margin-bottom: 6px;
+}
+
+.memo-body li::marker {
+  color: var(--fg-secondary);
+}
+
+/* ── Memo Tables ─────────────────────────────────────────── */
+.memo-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.memo-body th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary);
+  background-color: var(--bg-card);
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.memo-body td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.memo-body tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Memo Citation Badges ────────────────────────────────── */
+.memo-citation {
+  display: inline;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--fg-secondary);
+  background-color: rgba(151, 159, 167, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+/* ── Memo Blockquotes ────────────────────────────────────── */
+.memo-body blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 16px;
+  margin: 16px 0;
+  color: var(--fg-secondary);
+  font-style: italic;
+}
+
+/* ── Memo Code ───────────────────────────────────────────── */
+.memo-body code {
+  font-size: 0.85em;
+  background-color: rgba(151, 159, 167, 0.1);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.memo-body pre {
+  background-color: var(--bg-card);
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid var(--border);
+}
+
+.memo-body pre code {
+  background: none;
+  padding: 0;
+}
+
+/* ── Memo Horizontal Rule ────────────────────────────────── */
+.memo-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── Memo Strong / Bold ──────────────────────────────────── */
+.memo-body strong {
+  font-weight: 600;
+}
+
+/* ── Scrollbar (dark theme) ──────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-secondary);
+}

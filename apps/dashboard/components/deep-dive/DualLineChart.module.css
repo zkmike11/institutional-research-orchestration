@@ -1,0 +1,69 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: var(--card-padding);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--fg);
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+}
+
+.value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.chartArea {
+  display: flex;
+  justify-content: center;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendSwatch {
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.legendLabel {
+  font-size: 0.7rem;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

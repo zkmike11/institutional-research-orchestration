@@ -1,0 +1,103 @@
+.row {
+  transition: background-color 0.15s ease;
+}
+
+.row:hover {
+  background-color: var(--bg-hover);
+}
+
+.colorBarCell {
+  padding: 0 !important;
+  width: 3px;
+}
+
+.logoCell {
+  padding: 10px 8px 10px 12px !important;
+  width: 40px;
+}
+
+.tickerCell {
+  font-weight: 700;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  padding: 10px 8px !important;
+}
+
+.companyCell {
+  padding: 10px 12px !important;
+  min-width: 160px;
+}
+
+.companyName {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  display: block;
+}
+
+.companySub {
+  font-size: 0.7rem;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  display: block;
+}
+
+.priceCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  padding: 10px 12px !important;
+}
+
+.mktCapCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  color: var(--fg-secondary);
+  padding: 10px 12px !important;
+}
+
+.percentCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 10px 8px !important;
+}
+
+.percentInner {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 64px;
+  text-align: right;
+}
+
+.sparklineCell {
+  padding: 6px 8px !important;
+}
+
+.highCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 10px 12px !important;
+}
+
+.highInner {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 64px;
+  text-align: right;
+}

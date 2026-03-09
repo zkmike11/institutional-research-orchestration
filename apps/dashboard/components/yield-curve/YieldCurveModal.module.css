@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.chartSection {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: var(--card-padding);
+}
+
+.spreadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.spreadHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.spreadTitle {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--fg);
+}
+
+.spreadControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

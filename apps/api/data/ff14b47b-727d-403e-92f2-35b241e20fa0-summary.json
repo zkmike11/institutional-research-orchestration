@@ -1,0 +1,401 @@
+{
+  "protocolName": "Morpho",
+  "reviewId": "ff14b47b-727d-403e-92f2-35b241e20fa0",
+  "gatheredAt": "2026-03-08T05:56:59.697Z",
+  "identity": {
+    "name": "Morpho",
+    "category": null,
+    "chains": [],
+    "description": "Morpho is an open, efficient, and resilient platform that allows anyone to earn yield and borrow assets.\r\nLenders can earn on Morpho using Morpho Vaults, noncustodial simple to use lending vaults that optimize yields for depositors. Borrowers can borrow any assets directly from Morpho Markets.\r\n\r\nAt the same time, developers or businesses can create markets, curate vaults, and build a range of applications on its flexible, permissionless infrastructure.\r\n\r\nMorpho is really trustless, with immuta",
+    "coingeckoId": "morpho",
+    "symbol": "MORPHO",
+    "marketCapRank": 65,
+    "links": {
+      "website": "https://morpho.org/",
+      "twitter": "Morpho",
+      "github": "https://github.com/morpho-org"
+    }
+  },
+  "financials": {
+    "price": 1.85,
+    "priceChange24h": 2.24981,
+    "priceChange30d": 66.43979,
+    "ath": 4.17,
+    "athDate": "2025-01-17T12:46:19.818Z",
+    "marketCap": 1016981323,
+    "fdv": 1852226192,
+    "volume24h": 11756567,
+    "circulatingSupply": 549058925.4034618,
+    "maxSupply": 1000000000,
+    "totalSupply": 1000000000
+  },
+  "tvl": {
+    "current": 6931152077,
+    "oneMonthAgo": 5875699316,
+    "threeMonthsAgo": 6018405047,
+    "oneYearAgo": 3076778508,
+    "change30d": "18.0%",
+    "change1y": "125.3%"
+  },
+  "fees": {
+    "fees24h": null,
+    "fees7d": null,
+    "fees30d": null,
+    "revenue24h": null,
+    "revenue30d": null,
+    "revenueAnnualized": null
+  },
+  "valuation": {
+    "feesData": {
+      "fees24h": null,
+      "fees7d": null,
+      "revenue24h": null
+    }
+  },
+  "tokenomics": {
+    "circulatingSupply": 549058925.4034618,
+    "maxSupply": 1000000000,
+    "circulatingPct": "54.9%",
+    "unlockData": null
+  },
+  "governance": {
+    "proposals": [
+      {
+        "title": "MIP 128 - Lite App Deprecation Part 2",
+        "state": "closed",
+        "votes": 9,
+        "scoresTotal": 4156044.8968267,
+        "created": null,
+        "end": "2026-01-22"
+      },
+      {
+        "title": "MIP 127 - External Grants Rewards Framework",
+        "state": "closed",
+        "votes": 9,
+        "scoresTotal": 4156044.8968267,
+        "created": null,
+        "end": "2026-01-22"
+      },
+      {
+        "title": "MIP 126 - List MorphoMarketV1AdapterV2 in Morpho Registry",
+        "state": "closed",
+        "votes": 9,
+        "scoresTotal": 6527860.562985982,
+        "created": null,
+        "end": "2025-12-18"
+      },
+      {
+        "title": "MIP 125 - Lite App Deprecation",
+        "state": "closed",
+        "votes": 11,
+        "scoresTotal": 2841249.304503875,
+        "created": null,
+        "end": "2025-12-12"
+      },
+      {
+        "title": "MIP 124 - Vault V2 Specific Incentive Campaign",
+        "state": "closed",
+        "votes": 12,
+        "scoresTotal": 3069473.998878777,
+        "created": null,
+        "end": "2025-12-12"
+      },
+      {
+        "title": "MIP 123 - Spark Olympics Adjustment",
+        "state": "closed",
+        "votes": 8,
+        "scoresTotal": 3683094.1910066013,
+        "created": null,
+        "end": "2025-11-30"
+      },
+      {
+        "title": "MIP 122 - Validate and Execute Morpho Adaptors Migration Plan",
+        "state": "closed",
+        "votes": 15,
+        "scoresTotal": 2763187.9772463534,
+        "created": null,
+        "end": "2025-11-04"
+      },
+      {
+        "title": "MIP 121 -- Aave v3 Optimizer Full Deprecation",
+        "state": "closed",
+        "votes": 17,
+        "scoresTotal": 11815184.584745266,
+        "created": null,
+        "end": "2025-10-25"
+      }
+    ],
+    "topVoters": [
+      {
+        "address": "0x42E6DD8D...",
+        "vp": 2472065.322532466,
+        "pct": "59.5%"
+      },
+      {
+        "address": "0x11cd09a0...",
+        "vp": 1642936.3960943122,
+        "pct": "39.5%"
+      },
+      {
+        "address": "0x1512B49b...",
+        "vp": 40886.77648535325,
+        "pct": "1.0%"
+      },
+      {
+        "address": "0x0579A616...",
+        "vp": 102.3002165263554,
+        "pct": "0.0%"
+      },
+      {
+        "address": "0xc5547B49...",
+        "vp": 52.33167487750632,
+        "pct": "0.0%"
+      },
+      {
+        "address": "0x3FB19771...",
+        "vp": 1,
+        "pct": "0.0%"
+      },
+      {
+        "address": "0xeB1Fa9A1...",
+        "vp": 0.5176191113790939,
+        "pct": "0.0%"
+      },
+      {
+        "address": "0x4D4AC655...",
+        "vp": 0.15220405296560033,
+        "pct": "0.0%"
+      },
+      {
+        "address": "0xE93D59CC...",
+        "vp": 0.1,
+        "pct": "0.0%"
+      }
+    ],
+    "totalVP": 4156044.8968267003,
+    "topVoterPct": 59.48119868531697,
+    "top5Pct": 99.99995741568706,
+    "score": null,
+    "health": null
+  },
+  "community": {
+    "forumTopics": [],
+    "forumSearchResults": [],
+    "news": "Fetched from Discourse forums and aggregators"
+  },
+  "competitive": {
+    "peers": [
+      {
+        "name": "Morpho",
+        "tvl": 6931152077,
+        "mcap": 1016041733.7991836
+      },
+      {
+        "name": "Compound V3",
+        "tvl": 1267791534,
+        "mcap": null
+      },
+      {
+        "name": "Morpho",
+        "tvl": 6931152077,
+        "mcap": 1016041733.7991836
+      },
+      {
+        "name": "Spark",
+        "tvl": 4691509861.16216,
+        "mcap": 47506137.91903658
+      }
+    ],
+    "sectorProtocols": [
+      {
+        "name": "Binance CEX",
+        "tvl": 147092481723.90598
+      },
+      {
+        "name": "Aave V3",
+        "tvl": 25920358831.767952
+      },
+      {
+        "name": "Lido",
+        "tvl": 18022570401.461166
+      },
+      {
+        "name": "OKX",
+        "tvl": 17596897902.955437
+      },
+      {
+        "name": "Bitfinex",
+        "tvl": 16374583133.739143
+      },
+      {
+        "name": "Bybit",
+        "tvl": 15246369159.200293
+      },
+      {
+        "name": "SSV Network",
+        "tvl": 12678149973.403345
+      },
+      {
+        "name": "Robinhood",
+        "tvl": 12041422134.95145
+      },
+      {
+        "name": "EigenCloud",
+        "tvl": 8668795047.238005
+      },
+      {
+        "name": "WBTC",
+        "tvl": 7858829927.385253
+      }
+    ]
+  },
+  "portfolio": {
+    "fundThesis": {
+      "name": "Markets, Inc.",
+      "focus": [
+        "DeFi",
+        "Governance Activism",
+        "Value Investing"
+      ],
+      "thesis": "The most undervalued assets in crypto are not the newest or the loudest — they are the protocols with strong economic engines trapped behind weak governance. We target Phase 2-3 protocols where governance activism can unlock trapped value through fee switches, buybacks, revenue alignment, and token economics restructuring."
+    },
+    "mandate": {
+      "max_position_count": 20,
+      "min_position_count": 5,
+      "governance_risk_cap": "3% NAV for CRITICAL governance risk",
+      "max_single_position": 0.15,
+      "max_valuation_multiple": 50,
+      "max_sector_concentration": 0.4
+    },
+    "currentPositions": [],
+    "priorMemos": [],
+    "learnings": []
+  },
+  "dataCompleteness": {
+    "total": 30,
+    "succeeded": 25,
+    "failed": 5,
+    "tools": [
+      {
+        "name": "resolve_protocol",
+        "success": true
+      },
+      {
+        "name": "search_memos",
+        "success": true
+      },
+      {
+        "name": "search_learnings",
+        "success": true
+      },
+      {
+        "name": "fund_thesis",
+        "success": true
+      },
+      {
+        "name": "get_mandate",
+        "success": true
+      },
+      {
+        "name": "protocol_snapshot",
+        "success": true
+      },
+      {
+        "name": "revenue_data",
+        "success": true
+      },
+      {
+        "name": "token_price",
+        "success": true
+      },
+      {
+        "name": "token_info",
+        "success": true
+      },
+      {
+        "name": "fee_data",
+        "success": true
+      },
+      {
+        "name": "tvl_data",
+        "success": true
+      },
+      {
+        "name": "market_data",
+        "success": true
+      },
+      {
+        "name": "valuation_multiples",
+        "success": true
+      },
+      {
+        "name": "token_unlocks",
+        "success": false
+      },
+      {
+        "name": "dex_volume",
+        "success": true
+      },
+      {
+        "name": "yield_data",
+        "success": true
+      },
+      {
+        "name": "stablecoin_data",
+        "success": true
+      },
+      {
+        "name": "detect_governance",
+        "success": false
+      },
+      {
+        "name": "search_spaces",
+        "success": false
+      },
+      {
+        "name": "snapshot_proposals",
+        "success": true
+      },
+      {
+        "name": "snapshot_voters",
+        "success": true
+      },
+      {
+        "name": "governance_health",
+        "success": false
+      },
+      {
+        "name": "voting_power",
+        "success": true
+      },
+      {
+        "name": "governance_score",
+        "success": false
+      },
+      {
+        "name": "forum_posts",
+        "success": true
+      },
+      {
+        "name": "forum_search",
+        "success": true
+      },
+      {
+        "name": "protocol_news",
+        "success": true
+      },
+      {
+        "name": "compare_protocols",
+        "success": true
+      },
+      {
+        "name": "protocol_list",
+        "success": true
+      },
+      {
+        "name": "get_portfolio",
+        "success": true
+      }
+    ]
+  }
+}

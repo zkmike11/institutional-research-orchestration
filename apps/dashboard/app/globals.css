@@ -1,0 +1,231 @@
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Base palette — matched to Dean's Markets Inc */
+  --bg: #0b0e14;
+  --bg-card: #141820;
+  --bg-card-elevated: #1a1f2e;
+  --bg-hover: #1a1d28;
+  --fg: #e5e7eb;
+  --fg-secondary: #6b7280;
+  --fg-muted: #4b5563;
+  --border: #1e2433;
+  --border-hover: #2a2f40;
+
+  /* Accent colors */
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-green: #22c55e;
+  --accent-yellow: #eab308;
+  --accent-red: #ef4444;
+  --accent-orange: #f97316;
+  --accent-blue: #3b82f6;
+  --accent-purple: #a855f7;
+  --accent-pink: #ec4899;
+  --section-header: #6366f1;
+
+  /* Market colors */
+  --positive: #22c55e;
+  --positive-bg: rgba(34, 197, 94, 0.15);
+  --negative: #ef4444;
+  --negative-bg: rgba(239, 68, 68, 0.15);
+  --neutral-bg: rgba(151, 159, 167, 0.08);
+
+  /* Regime colors */
+  --regime-calm: #22c55e;
+  --regime-elevated: #f59e0b;
+  --regime-fear: #ef4444;
+  --regime-extreme: #dc2626;
+
+  /* Sparkline colors */
+  --sparkline-green: #22c55e;
+  --sparkline-red: #ef4444;
+  --sparkline-blue: #3b82f6;
+  --sparkline-orange: #f59e0b;
+  --sparkline-purple: #a855f7;
+  --sparkline-pink: #ec4899;
+  --sparkline-grey: #6b7280;
+  --sparkline-white: #d1d5db;
+
+  /* Bar chart colors */
+  --bar-positive: #22c55e;
+  --bar-negative: #ef4444;
+
+  /* Layout */
+  --sidebar-width: 160px;
+  --row-height: 64px;
+  --card-padding: 16px;
+  --grid-gap: 16px;
+
+  /* Typography */
+  --font-tabular: "Inter", ui-monospace, monospace;
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Dashboard Layout ────────────────────────────────────── */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+.main-content {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-secondary);
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg-card);
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Form Elements ───────────────────────────────────────── */
+input[type="text"],
+input[type="search"],
+input[type="date"],
+textarea,
+select {
+  padding: 6px 10px;
+  font-size: 0.8125rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--bg-card);
+  color: var(--fg);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--fg);
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+button:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Utility Classes ─────────────────────────────────────── */
+.text-positive { color: var(--positive); }
+.text-negative { color: var(--negative); }
+.text-muted { color: var(--fg-secondary); }
+.text-tabular { font-variant-numeric: tabular-nums; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* ── Empty / Error States ────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--fg-secondary);
+  font-size: 0.875rem;
+}
+
+.error-banner {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  color: var(--fg-secondary);
+  background-color: var(--bg-card);
+}

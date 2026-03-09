@@ -1,0 +1,27 @@
+.badge {
+  display: inline-block;
+  border-radius: 4px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.md {
+  padding: 2px 8px;
+  font-size: 0.8125rem;
+}
+
+.sm {
+  padding: 1px 6px;
+  font-size: 0.75rem;
+}
+
+.positive {
+  color: var(--positive);
+  background-color: var(--positive-bg);
+}
+
+.negative {
+  color: var(--negative);
+  background-color: var(--negative-bg);
+}

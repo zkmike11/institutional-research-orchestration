@@ -1,0 +1,19 @@
+{
+  "name": "committee-orchestrator",
+  "private": true,
+  "packageManager": "bun@1.3.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "db:migrate": "bun run --filter @committee/api db:migrate",
+    "db:seed": "bun run --filter @committee/api db:seed"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0"
+  }
+}

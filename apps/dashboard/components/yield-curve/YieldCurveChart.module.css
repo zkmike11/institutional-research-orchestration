@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+.axisLabel {
+  font-size: 10px;
+  fill: var(--fg-secondary);
+  font-family: inherit;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendLine {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.legendText {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+}
