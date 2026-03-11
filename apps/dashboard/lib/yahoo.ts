@@ -200,6 +200,94 @@ export async function getHistoricalRange(
   }
 }
 
+export async function getEarningsData(
+  symbols: string[]
+): Promise<
+  {
+    symbol: string;
+    name: string;
+    earningsDate: string | null;
+    epsEstimate: number | null;
+    revenueEstimate: number | null;
+    marketCap: number;
+  }[]
+> {
+  if (symbols.length === 0) return [];
+
+  // First get names + marketCap via batch quote
+  const quotes = await getQuotes(symbols);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const quoteMap = new Map<string, any>();
+  for (const q of quotes) {
+    if (q) quoteMap.set(q.symbol, q);
+  }
+
+  // Then fetch calendarEvents per symbol for earnings dates + estimates
+  const results = await Promise.allSettled(
+    symbols.map(async (symbol) => {
+      try {
+        const summary = await withRetry(
+          () =>
+            yahooFinance.quoteSummary(symbol, {
+              modules: ["calendarEvents", "earnings"] as any,
+            }),
+          `earnings(${symbol})`
+        );
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const r = summary as any;
+        const cal = r.calendarEvents;
+        const quote = quoteMap.get(symbol);
+
+        // Extract earnings date — calendarEvents.earnings.earningsDate is an array of Date
+        let earningsDate: string | null = null;
+        if (cal?.earnings?.earningsDate?.length > 0) {
+          const d = cal.earnings.earningsDate[0];
+          earningsDate =
+            d instanceof Date
+              ? d.toISOString().split("T")[0]
+              : String(d).split("T")[0];
+        }
+
+        return {
+          symbol,
+          name: (quote?.longName ?? quote?.shortName ?? symbol) as string,
+          earningsDate,
+          epsEstimate: (cal?.earnings?.earningsAverage ?? null) as number | null,
+          revenueEstimate: (cal?.earnings?.revenueAverage ?? null) as number | null,
+          marketCap: (quote?.marketCap ?? 0) as number,
+        };
+      } catch (err) {
+        console.warn(
+          `[Yahoo] Earnings failed for ${symbol}:`,
+          err instanceof Error ? err.message : err
+        );
+        const quote = quoteMap.get(symbol);
+        // Fallback: return entry with what we have from the quote
+        return {
+          symbol,
+          name: (quote?.longName ?? quote?.shortName ?? symbol) as string,
+          earningsDate: null,
+          epsEstimate: null,
+          revenueEstimate: null,
+          marketCap: (quote?.marketCap ?? 0) as number,
+        };
+      }
+    })
+  );
+
+  return results
+    .map((r) => (r.status === "fulfilled" ? r.value : null))
+    .filter(Boolean) as {
+    symbol: string;
+    name: string;
+    earningsDate: string | null;
+    epsEstimate: number | null;
+    revenueEstimate: number | null;
+    marketCap: number;
+  }[];
+}
+
 function daysAgo(n: number): Date {
   const d = new Date();
   d.setDate(d.getDate() - n);

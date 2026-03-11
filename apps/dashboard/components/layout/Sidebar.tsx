@@ -82,6 +82,17 @@ const primaryItems: NavItem[] = [
     ),
   },
   {
+    label: "Earnings",
+    href: "/earnings",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="3" height="12" rx="0.5" />
+        <rect x="7.5" y="6" width="3" height="9" rx="0.5" />
+        <rect x="12" y="1" width="3" height="14" rx="0.5" />
+      </svg>
+    ),
+  },
+  {
     label: "Filings",
     href: "/filings",
     icon: (

@@ -61,30 +61,42 @@ export default function TopMoversPage() {
         losers={losers ?? []}
       />
       <div className={styles.sectorPanels}>
-        <HorizontalBarPanel
-          title="Equity Sectors"
-          data={sectors.data ?? []}
-          modeOptions={MODE_OPTIONS}
-          mode={sectorsMode}
-          onModeChange={setSectorsMode}
-          periodOptions={EMBEDDED_PERIODS}
-          period={sectorsPeriod}
-          onPeriodChange={setSectorsPeriod}
-          viewMode={sectorsView}
-          onViewModeChange={setSectorsView}
-        />
-        <HorizontalBarPanel
-          title="Industry Groups"
-          data={industries.data ?? []}
-          modeOptions={MODE_OPTIONS}
-          mode={indMode}
-          onModeChange={setIndMode}
-          periodOptions={EMBEDDED_PERIODS}
-          period={indPeriod}
-          onPeriodChange={setIndPeriod}
-          viewMode={indView}
-          onViewModeChange={setIndView}
-        />
+        {sectors.loading && !sectors.data ? (
+          <div className={styles.sectorCard}><LoadingState /></div>
+        ) : sectors.error ? (
+          <div className={styles.sectorCard}><ErrorState message={sectors.error} /></div>
+        ) : (
+          <HorizontalBarPanel
+            title="Equity Sectors"
+            data={sectors.data ?? []}
+            modeOptions={MODE_OPTIONS}
+            mode={sectorsMode}
+            onModeChange={setSectorsMode}
+            periodOptions={EMBEDDED_PERIODS}
+            period={sectorsPeriod}
+            onPeriodChange={setSectorsPeriod}
+            viewMode={sectorsView}
+            onViewModeChange={setSectorsView}
+          />
+        )}
+        {industries.loading && !industries.data ? (
+          <div className={styles.sectorCard}><LoadingState /></div>
+        ) : industries.error ? (
+          <div className={styles.sectorCard}><ErrorState message={industries.error} /></div>
+        ) : (
+          <HorizontalBarPanel
+            title="Industry Groups"
+            data={industries.data ?? []}
+            modeOptions={MODE_OPTIONS}
+            mode={indMode}
+            onModeChange={setIndMode}
+            periodOptions={EMBEDDED_PERIODS}
+            period={indPeriod}
+            onPeriodChange={setIndPeriod}
+            viewMode={indView}
+            onViewModeChange={setIndView}
+          />
+        )}
       </div>
     </div>
   );
