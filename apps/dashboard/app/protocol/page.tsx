@@ -44,7 +44,8 @@ export default function ProtocolPage() {
       {error && <ErrorState message={error} />}
 
       {protocol && (
-        <div className={styles.stack}>
+        <div className={`${styles.stack} ${loading ? styles.loadingOverlay : ""}`}>
+          {loading && <div className={styles.loadingIndicator} />}
           <div className={styles.section}>
             <ProtocolSummaryCard protocol={protocol} />
           </div>

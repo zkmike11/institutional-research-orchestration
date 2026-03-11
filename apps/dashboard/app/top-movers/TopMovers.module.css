@@ -28,3 +28,15 @@
   gap: var(--grid-gap);
   margin-top: 24px;
 }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sectorPanels {
+    grid-template-columns: 1fr;
+  }
+}

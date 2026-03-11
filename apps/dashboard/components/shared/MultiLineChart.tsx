@@ -34,6 +34,8 @@ export default function MultiLineChart({
   const plotH = height - margin.top - margin.bottom;
 
   const allValues = series.flatMap((s) => s.values);
+  if (allValues.length === 0) return null;
+
   const rawMin = Math.min(...allValues);
   const rawMax = Math.max(...allValues);
   const range = rawMax - rawMin || 1;
@@ -42,6 +44,7 @@ export default function MultiLineChart({
   const yMax = rawMax + pad;
 
   const len = series[0].values.length;
+  if (len <= 1) return null;
   const xScale = (i: number) => margin.left + (i / (len - 1)) * plotW;
   const yScale = (v: number) => margin.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
 

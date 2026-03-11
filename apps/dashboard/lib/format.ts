@@ -1,4 +1,5 @@
 export function formatPrice(value: number, currency?: string): string {
+  if (!isFinite(value)) return "\u2014";
   if (value >= 10000) return value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   if (value >= 100) return value.toFixed(2);
   if (value >= 1) return value.toFixed(2);
@@ -14,29 +15,35 @@ export function formatMarketCap(value: number | undefined): string {
 }
 
 export function formatPercent(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   const sign = value >= 0 ? "+" : "";
   return `${sign}${value.toFixed(2)}%`;
 }
 
 export function formatBps(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   return `${Math.round(value)} bps`;
 }
 
 export function formatSigma(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}σ`;
+  return `${sign}${value.toFixed(1)}\u03C3`;
 }
 
 export function formatDelta(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   const sign = value >= 0 ? "+" : "";
   return `${sign}${value.toFixed(2)}`;
 }
 
 export function formatYield(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   return `${value.toFixed(2)}%`;
 }
 
 export function formatCompact(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   if (value >= 1e12) return `${(value / 1e12).toFixed(1)}T`;
   if (value >= 1e9) return `${(value / 1e9).toFixed(1)}B`;
   if (value >= 1e6) return `${(value / 1e6).toFixed(1)}M`;
@@ -45,9 +52,11 @@ export function formatCompact(value: number): string {
 }
 
 export function formatTvl(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   return `$${formatCompact(value)}`;
 }
 
 export function formatApy(value: number): string {
+  if (!isFinite(value)) return "\u2014";
   return `${value.toFixed(2)}%`;
 }

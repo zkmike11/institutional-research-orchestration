@@ -3,3 +3,10 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--grid-gap);
 }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

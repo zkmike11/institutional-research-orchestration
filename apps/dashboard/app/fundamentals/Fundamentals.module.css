@@ -41,6 +41,22 @@
   background-color: var(--accent-hover);
 }
 
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .addForm {
+    flex-wrap: wrap;
+  }
+
+  .input {
+    width: 100%;
+  }
+}
+
 .tableWrap {
   overflow-x: auto;
   border: 1px solid var(--border);

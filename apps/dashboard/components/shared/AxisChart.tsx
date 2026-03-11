@@ -62,6 +62,8 @@ export default function AxisChart({
   for (const s of series) {
     for (const d of s.data) allValues.push(d.value);
   }
+  if (allValues.length === 0) return null;
+
   const rawMin = Math.min(...allValues);
   const rawMax = Math.max(...allValues);
   const range = rawMax - rawMin || 1;
@@ -72,6 +74,7 @@ export default function AxisChart({
   // Use the first series for X-axis (all series share same timestamps)
   const primaryData = series[0].data;
   const xLen = primaryData.length;
+  if (xLen <= 1) return null;
 
   // X scale
   const xScale = (i: number) => margin.left + (i / (xLen - 1)) * plotW;

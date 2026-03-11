@@ -20,7 +20,7 @@ export default function ScannerPage() {
   if (loading && !data) return <LoadingState />;
   if (error) return <ErrorState message={error} />;
 
-  const categoryMap = new Map(data?.map((cat) => [cat.name, cat]));
+  const categoryMap = new Map(data?.map((cat) => [cat.name, cat]) ?? []);
 
   return (
     <div>

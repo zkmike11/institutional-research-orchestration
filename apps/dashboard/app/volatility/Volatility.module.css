@@ -57,3 +57,10 @@
   color: var(--fg-secondary);
   margin-bottom: 12px;
 }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

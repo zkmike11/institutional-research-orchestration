@@ -229,3 +229,27 @@ button:disabled {
   color: var(--fg-secondary);
   background-color: var(--bg-card);
 }
+
+/* ── Responsive Breakpoints ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 12px;
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 8px;
+  }
+}
