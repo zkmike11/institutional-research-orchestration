@@ -2,7 +2,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 
 export const TOOL_SCHEMAS: Anthropic.Tool[] = [
   // ═══════════════════════════════════════
-  // DeFi Data Tools (16)
+  // DeFi Data Tools (20)
   // ═══════════════════════════════════════
   {
     name: "resolve_protocol",
@@ -188,9 +188,54 @@ export const TOOL_SCHEMAS: Anthropic.Tool[] = [
       required: ["category"],
     },
   },
+  {
+    name: "liquidity_depth",
+    description: "Analyze order book depth, bid/ask spread, and liquidity concentration across exchanges and DEX pools.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_id: { type: "string", description: "Protocol identifier" },
+      },
+      required: ["protocol_id"],
+    },
+  },
+  {
+    name: "yield_comparison",
+    description: "Compare yield rates across protocols for similar strategies (lending, LP, staking).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        strategy_type: { type: "string", description: "Strategy type (e.g. 'lending', 'staking', 'lp')" },
+        min_tvl: { type: "number", description: "Minimum TVL filter (optional)" },
+      },
+      required: ["strategy_type"],
+    },
+  },
+  {
+    name: "emissions_schedule",
+    description: "Get detailed token emissions timeline: monthly emission rates, cliff dates, and vesting curves.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        token_id: { type: "string", description: "Token identifier" },
+      },
+      required: ["token_id"],
+    },
+  },
+  {
+    name: "fee_switch_analysis",
+    description: "Analyze protocol fee switch status: is fee switch on, proposed fee changes, revenue distribution to token holders.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_id: { type: "string", description: "Protocol identifier" },
+      },
+      required: ["protocol_id"],
+    },
+  },
 
   // ═══════════════════════════════════════
-  // Governance Tools (12)
+  // Governance Tools (14)
   // ═══════════════════════════════════════
   {
     name: "search_spaces",
@@ -327,9 +372,32 @@ export const TOOL_SCHEMAS: Anthropic.Tool[] = [
       required: ["space_id"],
     },
   },
+  {
+    name: "treasury_analysis",
+    description: "Analyze protocol treasury: composition, runway, diversification, spending rate, and stablecoin reserves.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "governance_participation_trend",
+    description: "Get historical governance participation metrics: voter turnout trends, proposal frequency, delegate growth over time.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        space_id: { type: "string", description: "Snapshot space ID" },
+        timeframe: { type: "string", description: "Timeframe for trend data (default '90d')", default: "90d" },
+      },
+      required: ["space_id"],
+    },
+  },
 
   // ═══════════════════════════════════════
-  // On-Chain Tools (7)
+  // On-Chain Tools (8)
   // ═══════════════════════════════════════
   {
     name: "contract_info",
@@ -416,9 +484,22 @@ export const TOOL_SCHEMAS: Anthropic.Tool[] = [
       required: ["protocol_name"],
     },
   },
+  {
+    name: "whale_tracking",
+    description: "Track large holder activity: accumulation/distribution patterns, wallet age, and concentration changes over time.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        address: { type: "string", description: "Token contract address or wallet address" },
+        chain: { type: "string", description: "Chain name (default: ethereum)", default: "ethereum" },
+        timeframe: { type: "string", description: "Timeframe for tracking (default '30d')", default: "30d" },
+      },
+      required: ["address"],
+    },
+  },
 
   // ═══════════════════════════════════════
-  // Research Tools (9)
+  // Research & Internal Tools (41)
   // ═══════════════════════════════════════
   {
     name: "search_memos",
@@ -517,6 +598,382 @@ export const TOOL_SCHEMAS: Anthropic.Tool[] = [
       type: "object" as const,
       properties: {},
       required: [],
+    },
+  },
+
+  // ─── Extended Research & Internal Tools ───
+  {
+    name: "web_search",
+    description: "Search the web for protocol information, news, and analysis.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: { type: "string", description: "Search query" },
+        num_results: { type: "number", description: "Number of results to return (default 10)", default: 10 },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "github_activity",
+    description: "Get GitHub repository activity: commit frequency, contributors, open issues, recent PRs.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        repo_url: { type: "string", description: "GitHub repository URL" },
+      },
+      required: ["repo_url"],
+    },
+  },
+  {
+    name: "social_sentiment",
+    description: "Analyze social media sentiment for a protocol across Twitter/X and crypto forums.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+        timeframe: { type: "string", description: "Timeframe for sentiment analysis (default '7d')", default: "7d" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "competitor_analysis",
+    description: "Detailed competitive analysis: market share, growth rates, feature comparison, and moat assessment.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_id: { type: "string", description: "Primary protocol identifier" },
+        competitor_ids: {
+          type: "array",
+          items: { type: "string" },
+          description: "Array of competitor protocol identifiers",
+        },
+      },
+      required: ["protocol_id", "competitor_ids"],
+    },
+  },
+  {
+    name: "token_economics_model",
+    description: "Model token value accrual: fee capture, burn mechanics, staking yield, and projected token value.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_id: { type: "string", description: "Protocol identifier" },
+        coingecko_id: { type: "string", description: "CoinGecko coin ID" },
+      },
+      required: ["protocol_id", "coingecko_id"],
+    },
+  },
+  {
+    name: "signpost_extraction",
+    description: "Extract key monitoring signposts from a completed investment memo for ongoing tracking.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to extract signposts from" },
+      },
+      required: ["report_id"],
+    },
+  },
+  {
+    name: "charlies_take",
+    description: "Generate an independent counter-opinion on the investment thesis (Charlie Munger-style inversion).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to generate counter-opinion for" },
+      },
+      required: ["report_id"],
+    },
+  },
+  {
+    name: "risk_score_calculation",
+    description: "Calculate quantitative risk score (0-100) across all risk categories with weighted components.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "historical_price_analysis",
+    description: "Analyze historical price patterns: drawdowns, recovery times, volatility regimes, and correlation with BTC/ETH.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        token_id: { type: "string", description: "CoinGecko token ID" },
+        timeframe: { type: "string", description: "Timeframe for analysis (default '1y')", default: "1y" },
+      },
+      required: ["token_id"],
+    },
+  },
+  {
+    name: "correlation_analysis",
+    description: "Calculate correlation matrix between a protocol and existing portfolio positions.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        token_id: { type: "string", description: "CoinGecko token ID" },
+      },
+      required: ["token_id"],
+    },
+  },
+  {
+    name: "sector_rotation_check",
+    description: "Check sector momentum and rotation signals: capital flows between DeFi sectors.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        sector: { type: "string", description: "DeFi sector (e.g. 'Lending', 'DEX', 'Liquid Staking')" },
+      },
+      required: ["sector"],
+    },
+  },
+  {
+    name: "regulatory_scan",
+    description: "Scan regulatory environment: recent enforcement actions, legislation, and classification risks for the protocol's sector.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+        jurisdiction: { type: "string", description: "Jurisdiction to scan (default 'US')", default: "US" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "team_analysis",
+    description: "Analyze team background, track record, funding history, and key person risk.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "similar_protocols",
+    description: "Find protocols with similar architecture, token model, or market positioning using pattern matching.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+      },
+      required: ["protocol_name"],
+    },
+  },
+  {
+    name: "thesis_validation",
+    description: "Validate investment thesis against available data: check if key assumptions hold.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to validate thesis for" },
+      },
+      required: ["report_id"],
+    },
+  },
+  {
+    name: "mental_model_lookup",
+    description: "Look up relevant mental models from the institutional knowledge base for a given analysis context.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        context: { type: "string", description: "Analysis context to find relevant mental models for" },
+        limit: { type: "number", description: "Maximum number of models to return (default 5)", default: 5 },
+      },
+      required: ["context"],
+    },
+  },
+  {
+    name: "fund_context_query",
+    description: "Query the fund's context documents: mandate, risk policy, thesis, and strategic insights.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: { type: "string", description: "Query string" },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "learning_search_semantic",
+    description: "Semantic search over institutional learnings using vector similarity.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: { type: "string", description: "Search query" },
+        limit: { type: "number", description: "Maximum number of results (default 10)", default: 10 },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "report_search_fts",
+    description: "Full-text search across all past reports with relevance scoring.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: { type: "string", description: "Search query" },
+        limit: { type: "number", description: "Maximum number of results (default 10)", default: 10 },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "prediction_track",
+    description: "Track and update a prediction: log the claim, probability, and resolution status.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID the prediction relates to" },
+        claim: { type: "string", description: "The prediction claim" },
+        probability: { type: "number", description: "Probability estimate (0-1)" },
+      },
+      required: ["report_id", "claim", "probability"],
+    },
+  },
+  {
+    name: "conviction_update",
+    description: "Update conviction level for a protocol based on new evidence (Bayesian update).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to update conviction for" },
+        direction: { type: "string", description: "Direction of update: 'increase' or 'decrease'" },
+        magnitude: { type: "number", description: "Magnitude of the update" },
+        reason: { type: "string", description: "Reason for the conviction change" },
+      },
+      required: ["report_id", "direction", "magnitude", "reason"],
+    },
+  },
+  {
+    name: "kill_criteria_check",
+    description: "Check if any kill criteria have been triggered for a protocol's active position.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to check kill criteria for" },
+      },
+      required: ["report_id"],
+    },
+  },
+  {
+    name: "signpost_monitor",
+    description: "Check current status of monitoring signposts for a protocol.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to monitor signposts for" },
+      },
+      required: ["report_id"],
+    },
+  },
+  {
+    name: "daily_brief_generate",
+    description: "Generate a daily brief: portfolio updates, signpost fires, new protocol discoveries.",
+    input_schema: {
+      type: "object" as const,
+      properties: {},
+      required: [],
+    },
+  },
+  {
+    name: "portfolio_rebalance_check",
+    description: "Check if portfolio needs rebalancing based on current positions, sector limits, and conviction changes.",
+    input_schema: {
+      type: "object" as const,
+      properties: {},
+      required: [],
+    },
+  },
+  {
+    name: "sector_exposure_check",
+    description: "Check current sector exposure against mandate limits.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        sector: { type: "string", description: "Specific sector to check (optional, checks all if omitted)" },
+      },
+      required: [],
+    },
+  },
+  {
+    name: "mandate_check",
+    description: "Run full mandate compliance check: position limits, sector concentration, liquidity requirements.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        protocol_name: { type: "string", description: "Protocol name" },
+        proposed_position_pct: { type: "number", description: "Proposed position size as percentage of portfolio" },
+      },
+      required: ["protocol_name", "proposed_position_pct"],
+    },
+  },
+  {
+    name: "data_confidence_score",
+    description: "Calculate data confidence score based on source reliability, recency, and cross-validation.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        sources: {
+          type: "array",
+          items: { type: "string" },
+          description: "Array of data source identifiers used",
+        },
+      },
+      required: ["sources"],
+    },
+  },
+  {
+    name: "telemetry_log",
+    description: "Log telemetry data for tool execution: latency, success rate, error details.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        tool_name: { type: "string", description: "Name of the tool that was executed" },
+        success: { type: "boolean", description: "Whether the tool execution succeeded" },
+        latency_ms: { type: "number", description: "Execution latency in milliseconds" },
+        error_message: { type: "string", description: "Error message if execution failed (optional)" },
+      },
+      required: ["tool_name", "success", "latency_ms"],
+    },
+  },
+  {
+    name: "search_vector_query",
+    description: "Perform semantic vector search across all indexed content (reports, learnings, fund context).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: { type: "string", description: "Search query" },
+        content_type: { type: "string", description: "Content type filter (optional, e.g. 'report', 'learning', 'context')" },
+        limit: { type: "number", description: "Maximum number of results (default 10)", default: 10 },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "calibration_score",
+    description: "Calculate prediction calibration score: how well past probability estimates matched actual outcomes.",
+    input_schema: {
+      type: "object" as const,
+      properties: {},
+      required: [],
+    },
+  },
+  {
+    name: "edge_calculation",
+    description: "Calculate KL-divergence edge: how much our probability estimates differ from market-implied probabilities.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        report_id: { type: "string", description: "Report ID to calculate edge for" },
+      },
+      required: ["report_id"],
     },
   },
 ];

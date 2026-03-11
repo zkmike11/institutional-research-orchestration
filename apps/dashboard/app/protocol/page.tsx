@@ -59,10 +59,7 @@ export default function ProtocolPage() {
 
           {protocol.yields.length > 0 && (
             <div className={styles.section}>
-              <div className={styles.yieldsCard}>
-                <div className={styles.yieldTitle}>Yield Opportunities</div>
-                <YieldTable pools={protocol.yields} />
-              </div>
+              <YieldTable pools={protocol.yields} />
             </div>
           )}
 

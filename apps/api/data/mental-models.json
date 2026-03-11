@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Circle of Competence",
+    "category": "psychology",
+    "description": "Only invest in what you deeply understand. If you don't understand the protocol's mechanics, token economics, and competitive moat — stay out.",
+    "applicability": "Initial screening and mandate check",
+    "example": "Skipping a novel ZK-rollup protocol when the team lacks ZK expertise to evaluate claims.",
+    "source": "Munger"
+  },
+  {
+    "name": "Inversion",
+    "category": "psychology",
+    "description": "Instead of asking 'will this succeed?', ask 'what would make this fail?' Enumerate all paths to zero before considering upside.",
+    "applicability": "Risk assessment and kill criteria definition",
+    "example": "Before BUY on a lending protocol: what if utilization drops below 20%? What if a competitor forks with better rates?",
+    "source": "Munger"
+  },
+  {
+    "name": "Second-Order Thinking",
+    "category": "systems",
+    "description": "Think beyond immediate effects. Fee switch activation may boost token price short-term but reduce protocol competitiveness long-term.",
+    "applicability": "Governance activism assessment, fee switch analysis",
+    "example": "A fee switch proposal passes → short-term token pump → but LPs leave for cheaper alternatives → TVL drops 40%.",
+    "source": "Munger"
+  },
+  {
+    "name": "Margin of Safety",
+    "category": "finance",
+    "description": "Only buy when price is significantly below intrinsic value. The bigger the gap between price and value, the safer the investment.",
+    "applicability": "Valuation and entry price determination",
+    "example": "Protocol trading at 5x revenue when comparable protocols trade at 15x — significant margin of safety exists.",
+    "source": "Graham"
+  },
+  {
+    "name": "Moat Analysis (Competitive Advantage)",
+    "category": "finance",
+    "description": "Identify the protocol's sustainable competitive advantage: network effects, switching costs, brand, cost advantages, or regulatory moats.",
+    "applicability": "Competitive intelligence and long-term thesis",
+    "example": "Aave's moat: deepest liquidity pools create network effects that make it expensive for users to switch.",
+    "source": "Buffett"
+  },
+  {
+    "name": "Incentive Analysis",
+    "category": "economics",
+    "description": "Never think about what people say, think about their incentives. Token holder incentives, team incentives, and user incentives must align.",
+    "applicability": "Tokenomics review, governance analysis",
+    "example": "If team holds 30% of tokens with no vesting, their incentive is to pump and dump regardless of product quality.",
+    "source": "Munger"
+  },
+  {
+    "name": "Reflexivity",
+    "category": "economics",
+    "description": "In crypto, price affects fundamentals and fundamentals affect price. Rising token price → more liquidity mining rewards → more TVL → higher perceived value.",
+    "applicability": "Token price analysis, TVL sustainability assessment",
+    "example": "A lending protocol's TVL is 80% mercenary capital attracted by token emissions — when emissions end, TVL collapses.",
+    "source": "Soros"
+  },
+  {
+    "name": "Lindy Effect",
+    "category": "systems",
+    "description": "The longer a protocol has survived, the longer its expected remaining lifespan. Battle-tested smart contracts are more trustworthy.",
+    "applicability": "Protocol maturity assessment, smart contract risk",
+    "example": "Aave V3 (3+ years, $10B+ TVL, multiple audits) vs. a new fork launched last month.",
+    "source": "Taleb"
+  },
+  {
+    "name": "Power Law Distribution",
+    "category": "systems",
+    "description": "In crypto sectors, the winner often takes 60-80% of the market. Being #1 or #2 matters enormously; #5 is usually worthless.",
+    "applicability": "Competitive positioning, sector analysis",
+    "example": "In DEXs: Uniswap has ~60% volume share. Being the 5th largest DEX means you're fighting for scraps.",
+    "source": "Thiel"
+  },
+  {
+    "name": "Bayesian Updating",
+    "category": "psychology",
+    "description": "Start with a prior probability for your thesis and update it as new evidence arrives. Never anchor to your initial conviction without new data.",
+    "applicability": "Conviction tracking, signpost monitoring",
+    "example": "Initial P(thesis) = 0.65. TVL drops 30% without market crash → P(thesis) updated to 0.45. Governance proposal passes → P(thesis) → 0.55.",
+    "source": "Theia"
+  },
+  {
+    "name": "Fat Tails",
+    "category": "finance",
+    "description": "Crypto returns follow fat-tailed distributions. Extreme events (90% drawdowns, 10x rallies) happen far more often than normal distributions predict.",
+    "applicability": "Position sizing, risk management",
+    "example": "Never size a position assuming max drawdown is 2σ. In crypto, 5σ events happen yearly.",
+    "source": "Taleb"
+  },
+  {
+    "name": "Principal-Agent Problem",
+    "category": "economics",
+    "description": "When protocol teams (agents) don't have enough skin in the game, their interests diverge from token holders (principals).",
+    "applicability": "Team analysis, governance structure evaluation",
+    "example": "A team that sold most of their allocation but still controls governance multisig — misaligned incentives.",
+    "source": "Munger"
+  },
+  {
+    "name": "Opportunity Cost",
+    "category": "finance",
+    "description": "Every investment decision is relative. The question isn't 'is this good?' but 'is this better than the next best alternative?'",
+    "applicability": "Portfolio construction, position sizing vs. alternatives",
+    "example": "This lending protocol returns 8% but a stablecoin yield strategy returns 12% with lower risk — opportunity cost is -4%.",
+    "source": "Munger"
+  },
+  {
+    "name": "Network Effects",
+    "category": "systems",
+    "description": "Protocols with strong network effects become more valuable as more users join. Liquidity attracts liquidity. Users attract builders.",
+    "applicability": "Moat assessment, growth trajectory analysis",
+    "example": "Ethereum's network effect: most developers → most dApps → most users → most liquidity → attracts more developers.",
+    "source": "Custom"
+  },
+  {
+    "name": "Antifragility",
+    "category": "systems",
+    "description": "Some protocols get stronger from stress. Surviving a hack and improving security, surviving a bear market and emerging leaner.",
+    "applicability": "Protocol resilience assessment, post-crisis analysis",
+    "example": "MakerDAO survived Black Thursday 2020, improved liquidation system, and emerged stronger with higher TVL.",
+    "source": "Taleb"
+  }
+]

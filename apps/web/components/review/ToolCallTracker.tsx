@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import type { ToolCallEntry } from '@/lib/api';
+import { getStepForTool } from './stepMapping';
+import StepHeader from './StepHeader';
 
 interface ToolCallTrackerProps {
   toolCalls: ToolCallEntry[];
@@ -18,7 +20,7 @@ function humanizeToolName(name: string): string {
 
 export default function ToolCallTracker({
   toolCalls,
-  expectedTotal = 35,
+  expectedTotal = 65,
   status,
 }: ToolCallTrackerProps) {
   const listRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,40 @@ export default function ToolCallTracker({
   }, [toolCalls.length]);
 
   const isRunning = status !== 'complete' && status !== 'failed';
+
+  // Group tool calls by step and insert step headers
+  let lastStepLabel = '';
+  const rows: React.ReactNode[] = [];
+
+  toolCalls.forEach((tc, i) => {
+    if (!tc) return;
+    const step = getStepForTool(tc.name);
+    if (step.label !== lastStepLabel) {
+      lastStepLabel = step.label;
+      rows.push(
+        <StepHeader key={`step-${i}`} label={step.label} color={step.color} />
+      );
+    }
+    rows.push(
+      <div key={i} style={styles.row}>
+        <span style={styles.icon}>
+          {tc.status === 'complete' && (
+            <span style={{ color: 'var(--accent-green)' }}>&#10003;</span>
+          )}
+          {tc.status === 'running' && (
+            <span style={styles.spinner}>&#10227;</span>
+          )}
+          {tc.status === 'error' && (
+            <span style={{ color: 'var(--accent-red)' }}>&#10007;</span>
+          )}
+        </span>
+        <span style={styles.name}>{humanizeToolName(tc.name)}</span>
+        {tc.args && (
+          <span style={styles.args}> &mdash; {tc.args}</span>
+        )}
+      </div>
+    );
+  });
 
   return (
     <div style={styles.container}>
@@ -55,29 +91,7 @@ export default function ToolCallTracker({
           <p style={styles.empty}>No tool calls recorded.</p>
         )}
 
-        {toolCalls.map((tc, i) =>
-          tc ? (
-            <div key={i} style={styles.row}>
-              <span style={styles.icon}>
-                {tc.status === 'complete' && (
-                  <span style={{ color: 'var(--accent-green)' }}>&#10003;</span>
-                )}
-                {tc.status === 'running' && (
-                  <span style={styles.spinner}>&#10227;</span>
-                )}
-                {tc.status === 'error' && (
-                  <span style={{ color: 'var(--accent-red)' }}>&#10007;</span>
-                )}
-              </span>
-
-              <span style={styles.name}>{humanizeToolName(tc.name)}</span>
-
-              {tc.args && (
-                <span style={styles.args}> &mdash; {tc.args}</span>
-              )}
-            </div>
-          ) : null
-        )}
+        {rows}
       </div>
     </div>
   );
@@ -97,7 +111,7 @@ const styles: Record<string, React.CSSProperties> = {
     textTransform: 'uppercase' as const,
   },
   list: {
-    maxHeight: 480,
+    maxHeight: 600,
     overflowY: 'auto' as const,
   },
   empty: {
@@ -110,8 +124,8 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    padding: '8px 16px',
-    fontSize: '0.875rem',
+    padding: '6px 16px',
+    fontSize: '0.8125rem',
   },
   icon: {
     width: 20,
@@ -130,7 +144,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   args: {
     color: 'var(--fg-secondary)',
-    fontSize: '0.8125rem',
+    fontSize: '0.75rem',
     flex: 1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

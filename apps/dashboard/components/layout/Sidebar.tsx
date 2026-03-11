@@ -161,6 +161,18 @@ const analysisItems: NavItem[] = [
 /* ── Crypto views ──────────────────────────────────────── */
 const cryptoItems: NavItem[] = [
   {
+    label: "Crypto",
+    href: "/crypto",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="9" r="7" />
+        <path d="M7 6.5h2.5a1.5 1.5 0 010 3H7v-3z" />
+        <path d="M7 9.5h3a1.5 1.5 0 010 3H7v-3z" />
+        <line x1="6" y1="5" x2="6" y2="13" />
+      </svg>
+    ),
+  },
+  {
     label: "DeFi",
     href: "/defi",
     icon: (
@@ -169,6 +181,30 @@ const cryptoItems: NavItem[] = [
         <path d="M6.5 7h3a1.5 1.5 0 010 3H7a1.5 1.5 0 000 3h4" />
         <line x1="9" y1="4.5" x2="9" y2="6" />
         <line x1="9" y1="13" x2="9" y2="14.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Macro",
+    href: "/crypto-macro",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="9" r="7" />
+        <path d="M5 9h8" />
+        <path d="M9 5v8" />
+        <path d="M6.5 6.5l5 5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Protocol",
+    href: "/protocol",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="12" height="12" rx="2" />
+        <line x1="7" y1="7" x2="7" y2="13" />
+        <line x1="11" y1="5" x2="11" y2="13" />
+        <line x1="5" y1="10" x2="13" y2="10" />
       </svg>
     ),
   },

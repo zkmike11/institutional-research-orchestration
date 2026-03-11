@@ -76,6 +76,43 @@ export interface Learning {
   createdAt: string;
 }
 
+export interface Signpost {
+  id: string;
+  description: string;
+  status: string;
+  convictionImpact: number | null;
+  lastChecked: string | null;
+  triggeredAt: string | null;
+  evidence: string | null;
+  createdAt: string;
+}
+
+export interface KillCriterion {
+  id: string;
+  criteria: string;
+  status: string;
+  monitoringSource: string | null;
+  checkFrequency: string | null;
+  triggerThreshold: string | null;
+  lastChecked: string | null;
+  triggeredAt: string | null;
+  createdAt: string;
+}
+
+export interface ConvictionEntry {
+  id: string;
+  conviction: string;
+  probThesis: number | null;
+  reason: string;
+  source: string | null;
+  createdAt: string;
+}
+
+export interface SearchResults {
+  reports: Report[];
+  learnings: Learning[];
+}
+
 export const api = {
   // Reports
   getReports: () => fetchJSON<Report[]>("/reports"),
@@ -103,4 +140,16 @@ export const api = {
 
   // Portfolio
   getPortfolio: () => fetchJSON<any[]>("/portfolio"),
+
+  // Search
+  search: (q: string, type?: string) =>
+    fetchJSON<SearchResults>(`/search?q=${encodeURIComponent(q)}${type ? `&type=${type}` : ""}`),
+
+  // Monitoring
+  getSignposts: (reportId: string) =>
+    fetchJSON<Signpost[]>(`/monitoring/signposts/${reportId}`),
+  getKillCriteria: (reportId: string) =>
+    fetchJSON<KillCriterion[]>(`/monitoring/kill-criteria/${reportId}`),
+  getConvictionTimeline: (reportId: string) =>
+    fetchJSON<ConvictionEntry[]>(`/monitoring/conviction/${reportId}`),
 };

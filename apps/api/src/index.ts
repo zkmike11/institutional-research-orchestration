@@ -6,6 +6,8 @@ import { learningsRouter } from "./routes/learnings.js";
 import { portfolioRouter } from "./routes/portfolio.js";
 import { dataSourcesRouter } from "./routes/data-sources.js";
 import { toolsRouter } from "./routes/tools.js";
+import { searchRouter } from "./routes/search.js";
+import { monitoringRouter } from "./routes/monitoring.js";
 
 const app = new Hono().basePath("/api");
 
@@ -17,6 +19,8 @@ app.route("/learnings", learningsRouter);
 app.route("/portfolio", portfolioRouter);
 app.route("/data-sources", dataSourcesRouter);
 app.route("/tools", toolsRouter);
+app.route("/search", searchRouter);
+app.route("/monitoring", monitoringRouter);
 
 app.get("/health", (c) => c.json({ status: "ok" }));
 

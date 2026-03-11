@@ -14,10 +14,22 @@ export async function GET(request: NextRequest) {
     const cached = cache.get<ProtocolDetail>(cacheKey);
     if (cached) return NextResponse.json(cached);
 
+    // Yields use versioned project names (e.g., "aave-v3" not "aave")
+    // Try slug first, then common versioned names
+    const yieldsFetch = async () => {
+      const direct = await getYields(slug).catch(() => []);
+      if (direct.length > 0) return direct;
+      for (const suffix of ["-v3", "-v2", "-finance"]) {
+        const versioned = await getYields(slug + suffix).catch(() => []);
+        if (versioned.length > 0) return versioned;
+      }
+      return [];
+    };
+
     const [protocolRaw, feesRaw, yieldsRaw] = await Promise.all([
       getProtocol(slug),
       getFees(slug),
-      getYields(slug).catch(() => []),
+      yieldsFetch(),
     ]);
 
     const tvlHistory = (protocolRaw.tvl ?? []).map((entry: any) => ({

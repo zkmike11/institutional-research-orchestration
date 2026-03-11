@@ -16,6 +16,7 @@ dist/
 # Keep memos (.md) and summaries (-summary.json) only
 apps/api/data/*.json
 !apps/api/data/*-summary.json
+!apps/api/data/mental-models.json
 
 # Private design reference assets
 reference-images/

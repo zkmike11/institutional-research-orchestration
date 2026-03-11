@@ -11,6 +11,7 @@ import MemoHeader from "@/components/memo/MemoHeader";
 import MemoTOC from "@/components/memo/MemoTOC";
 import MemoSection from "@/components/memo/MemoSection";
 import MemoErrorBoundary from "@/components/memo/MemoErrorBoundary";
+import MonitoringSection from "@/components/monitoring/MonitoringSection";
 
 function slugify(text: string): string {
   return text
@@ -207,6 +208,8 @@ export default function ReportPage() {
               </ReactMarkdown>
             </MemoSection>
           </MemoErrorBoundary>
+
+          <MonitoringSection reportId={report.id} />
         </div>
 
         {/* Right column: TOC sidebar */}

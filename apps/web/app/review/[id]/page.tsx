@@ -10,7 +10,7 @@ export default function ReviewPage() {
   const { id } = useParams<{ id: string }>();
   const [review, setReview] = useState<Review | null>(null);
   const [toolCalls, setToolCalls] = useState<ToolCallEntry[]>([]);
-  const [expectedTotal, setExpectedTotal] = useState(35);
+  const [expectedTotal, setExpectedTotal] = useState(65);
   const [status, setStatus] = useState<string>('loading');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);

@@ -34,7 +34,7 @@ export default function NewReviewPage() {
     <div style={styles.wrapper}>
       <h1 style={styles.heading}>New Committee Review</h1>
       <p style={styles.subtitle}>
-        Run a full 7-step investment committee review on a DeFi protocol.
+        Run a full 9-step investment committee review on a DeFi protocol.
       </p>
 
       <form onSubmit={handleSubmit} style={styles.form}>
