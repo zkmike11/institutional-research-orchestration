@@ -17,7 +17,7 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Markets, Inc.",
+  title: "Institutional Research",
   description: "Investment Committee",
 };
 

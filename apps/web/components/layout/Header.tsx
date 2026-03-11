@@ -33,7 +33,7 @@ export default function Header() {
             display: "block",
           }}
         >
-          Markets, Inc.
+          Institutional Research
         </Link>
         <span
           style={{
