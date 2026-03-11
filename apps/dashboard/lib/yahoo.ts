@@ -1,35 +1,74 @@
-import yahooFinance from "yahoo-finance2";
+import YahooFinance from "yahoo-finance2";
+const yahooFinance = new YahooFinance();
+
+/** Small delay to avoid Yahoo rate limits */
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Retry a function with exponential backoff on rate limit errors */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  label: string,
+  maxRetries: number = 2,
+  baseDelayMs: number = 2000
+): Promise<T> {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const isRateLimit = msg.includes("Too Many Requests") || msg.includes("429");
+
+      if (isRateLimit && attempt < maxRetries) {
+        const waitMs = baseDelayMs * Math.pow(2, attempt);
+        console.warn(`[Yahoo] Rate limited on ${label}, retrying in ${waitMs}ms (attempt ${attempt + 1}/${maxRetries})...`);
+        await delay(waitMs);
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw new Error("Unreachable");
+}
 
 export async function getQuotes(symbols: string[]) {
-  const results = await Promise.allSettled(
-    symbols.map((symbol) => yahooFinance.quote(symbol))
-  );
+  if (symbols.length === 0) return [];
 
-  return results
-    .map((result, i) => {
-      if (result.status === "fulfilled" && result.value) {
-        const q = result.value;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const raw = q as any;
+  try {
+    // Use batch quote — single API call for all symbols
+    const results = await withRetry(
+      () => yahooFinance.quote(symbols),
+      `quotes(${symbols.length} symbols)`
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const quotesArray: any[] = Array.isArray(results) ? results : [results];
+
+    return quotesArray
+      .map((q) => {
+        if (!q) return null;
         return {
-          symbol: symbols[i],
-          shortName: q.shortName ?? symbols[i],
-          longName: q.longName,
-          regularMarketPrice: q.regularMarketPrice ?? 0,
-          regularMarketChange: q.regularMarketChange ?? 0,
-          regularMarketChangePercent: q.regularMarketChangePercent ?? 0,
-          regularMarketPreviousClose: q.regularMarketPreviousClose ?? 0,
-          marketCap: q.marketCap,
-          fiftyTwoWeekHigh: q.fiftyTwoWeekHigh,
-          fiftyTwoWeekLow: q.fiftyTwoWeekLow,
-          currency: q.currency,
-          sector: raw.sector,
-          industry: raw.industry,
+          symbol: q.symbol as string,
+          shortName: (q.shortName ?? q.symbol) as string,
+          longName: q.longName as string | undefined,
+          regularMarketPrice: (q.regularMarketPrice ?? 0) as number,
+          regularMarketChange: (q.regularMarketChange ?? 0) as number,
+          regularMarketChangePercent: (q.regularMarketChangePercent ?? 0) as number,
+          regularMarketPreviousClose: (q.regularMarketPreviousClose ?? 0) as number,
+          marketCap: q.marketCap as number | undefined,
+          fiftyTwoWeekHigh: q.fiftyTwoWeekHigh as number | undefined,
+          fiftyTwoWeekLow: q.fiftyTwoWeekLow as number | undefined,
+          currency: q.currency as string | undefined,
+          sector: q.sector as string | undefined,
+          industry: q.industry as string | undefined,
         };
-      }
-      return null;
-    })
-    .filter(Boolean);
+      })
+      .filter(Boolean);
+  } catch (err) {
+    console.warn(`[Yahoo] Batch quote failed:`, err instanceof Error ? err.message : err);
+    return [];
+  }
 }
 
 export async function getHistorical(
@@ -51,68 +90,113 @@ export async function getHistorical(
   const opts = periodMap[period.toLowerCase()] ?? periodMap["1y"];
 
   try {
-    const result = await yahooFinance.historical(symbol, {
-      period1: opts.period1,
-      interval: "1d",
-    });
+    const result = await withRetry(
+      () => yahooFinance.chart(symbol, {
+        period1: opts.period1.toISOString().split("T")[0],
+        interval: "1d" as const,
+      }),
+      `historical(${symbol})`
+    );
 
-    return result.map((d) => ({
-      date: d.date.toISOString().split("T")[0],
-      close: d.close ?? 0,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const quotes = (result as any).quotes ?? [];
+    return quotes.map((d: any) => ({
+      date: d.date instanceof Date ? d.date.toISOString().split("T")[0] : String(d.date).split("T")[0],
+      close: (d.close ?? d.adjclose ?? 0) as number,
     }));
-  } catch {
+  } catch (err) {
+    console.warn(`[Yahoo] Historical failed for ${symbol} (${period}):`, err instanceof Error ? err.message : err);
     return [];
   }
 }
 
 export async function getCompanyInfo(symbol: string) {
   try {
-    const result = await yahooFinance.quoteSummary(symbol, {
-      modules: ["price", "summaryProfile", "defaultKeyStatistics"],
-    });
+    const result = await withRetry(
+      () => yahooFinance.quoteSummary(symbol, {
+        modules: ["price", "summaryProfile", "defaultKeyStatistics"],
+      }),
+      `companyInfo(${symbol})`
+    );
 
-    const price = result.price;
-    const profile = result.summaryProfile;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = result as any;
+    const price = r.price;
+    const profile = r.summaryProfile;
 
     return {
       symbol,
-      shortName: price?.shortName ?? symbol,
-      longName: price?.longName ?? symbol,
-      sector: profile?.sector ?? "Unknown",
-      industry: profile?.industry ?? "Unknown",
-      marketCap: price?.marketCap ?? 0,
+      shortName: (price?.shortName ?? symbol) as string,
+      longName: (price?.longName ?? symbol) as string,
+      sector: (profile?.sector ?? "Unknown") as string,
+      industry: (profile?.industry ?? "Unknown") as string,
+      marketCap: (price?.marketCap ?? 0) as number,
     };
-  } catch {
+  } catch (err) {
+    console.warn(`[Yahoo] CompanyInfo failed for ${symbol}:`, err instanceof Error ? err.message : err);
     return null;
   }
 }
 
 export async function getFundamentals(symbol: string) {
   try {
-    const result = await yahooFinance.quoteSummary(symbol, {
-      modules: ["price", "defaultKeyStatistics", "financialData", "summaryProfile", "summaryDetail"],
-    });
+    const result = await withRetry(
+      () => yahooFinance.quoteSummary(symbol, {
+        modules: ["price", "defaultKeyStatistics", "financialData", "summaryProfile", "summaryDetail"],
+      }),
+      `fundamentals(${symbol})`
+    );
 
-    const stats = result.defaultKeyStatistics;
-    const financial = result.financialData;
-    const price = result.price;
-    const detail = result.summaryDetail;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = result as any;
+    const stats = r.defaultKeyStatistics;
+    const financial = r.financialData;
+    const price = r.price;
+    const detail = r.summaryDetail;
 
     return {
       symbol,
-      shortName: price?.shortName ?? symbol,
-      sector: result.summaryProfile?.sector ?? "Unknown",
-      pe: detail?.trailingPE ?? null,
-      forwardPe: stats?.forwardPE ?? null,
-      ps: detail?.priceToSalesTrailing12Months ?? null,
-      eps: financial?.earningsGrowth ?? null,
-      revenue: financial?.totalRevenue ?? null,
-      grossMargin: financial?.grossMargins ?? null,
-      netMargin: financial?.profitMargins ?? null,
-      dividendYield: detail?.dividendYield ?? null,
+      shortName: (price?.shortName ?? symbol) as string,
+      sector: (r.summaryProfile?.sector ?? "Unknown") as string,
+      pe: (detail?.trailingPE ?? null) as number | null,
+      forwardPe: (stats?.forwardPE ?? null) as number | null,
+      ps: (detail?.priceToSalesTrailing12Months ?? null) as number | null,
+      eps: (financial?.earningsGrowth ?? null) as number | null,
+      revenue: (financial?.totalRevenue ?? null) as number | null,
+      grossMargin: (financial?.grossMargins ?? null) as number | null,
+      netMargin: (financial?.profitMargins ?? null) as number | null,
+      dividendYield: (detail?.dividendYield ?? null) as number | null,
     };
-  } catch {
+  } catch (err) {
+    console.warn(`[Yahoo] Fundamentals failed for ${symbol}:`, err instanceof Error ? err.message : err);
     return null;
+  }
+}
+
+export async function getHistoricalRange(
+  symbol: string,
+  startDate: string,
+  endDate: string
+): Promise<{ date: string; close: number }[]> {
+  try {
+    const result = await withRetry(
+      () => yahooFinance.chart(symbol, {
+        period1: startDate,
+        period2: endDate,
+        interval: "1d" as const,
+      }),
+      `historicalRange(${symbol})`
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const quotes = (result as any).quotes ?? [];
+    return quotes.map((d: any) => ({
+      date: d.date instanceof Date ? d.date.toISOString().split("T")[0] : String(d.date).split("T")[0],
+      close: (d.close ?? d.adjclose ?? 0) as number,
+    }));
+  } catch (err) {
+    console.warn(`[Yahoo] HistoricalRange failed for ${symbol} (${startDate}→${endDate}):`, err instanceof Error ? err.message : err);
+    return [];
   }
 }
 

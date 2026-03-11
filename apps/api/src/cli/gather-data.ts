@@ -159,7 +159,7 @@ try {
     data: Object.fromEntries(results.map(r => [r.name, { success: r.success, data: r.data }])),
   };
 
-  const outPath = `/Users/acct1/committee-orchestrator/apps/api/data/${review.id}.json`;
+  const outPath = `${import.meta.dir}/../../data/${review.id}.json`;
   await Bun.write(outPath, JSON.stringify(dataPackage, null, 2));
 
   console.log(`\nData gathering complete.`);

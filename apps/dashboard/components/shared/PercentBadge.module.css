@@ -18,10 +18,8 @@
 
 .positive {
   color: var(--positive);
-  background-color: var(--positive-bg);
 }
 
 .negative {
   color: var(--negative);
-  background-color: var(--negative-bg);
 }

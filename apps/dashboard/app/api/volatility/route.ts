@@ -72,6 +72,9 @@ export async function GET(_request: NextRequest) {
       if (result.status === "fulfilled" && result.value.length > 0) {
         sparklineMap.set(symbol, result.value.map((d) => d.close));
       } else {
+        if (result.status === "rejected") {
+          console.warn(`[API] /volatility sparkline failed for ${symbol}:`, result.reason?.message ?? result.reason);
+        }
         sparklineMap.set(symbol, []);
       }
     });

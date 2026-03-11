@@ -3,6 +3,7 @@ import { Inter, DM_Serif_Display } from "next/font/google";
 import Sidebar from "@/components/layout/Sidebar";
 import { WatchlistProvider } from "@/contexts/WatchlistProvider";
 import { ModalProvider } from "@/contexts/ModalProvider";
+import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,16 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${dmSerif.variable}`}>
-      <body>
-        <WatchlistProvider>
-          <ModalProvider>
-            <div className="dashboard-layout">
-              <Sidebar />
-              <main className="main-content">{children}</main>
-            </div>
-          </ModalProvider>
-        </WatchlistProvider>
+    <html lang="en" className={`${inter.variable} ${dmSerif.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <ErrorBoundary>
+          <WatchlistProvider>
+            <ModalProvider>
+              <div className="dashboard-layout">
+                <Sidebar />
+                <main className="main-content">{children}</main>
+              </div>
+            </ModalProvider>
+          </WatchlistProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

@@ -4,9 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "/", label: "Reports" },
-  { href: "/learnings", label: "Learnings" },
-  { href: "/research", label: "Research" },
+  { href: "/", label: "Memos" },
   { href: "/review/new", label: "New Review" },
 ];
 
@@ -35,7 +33,7 @@ export default function Header() {
             display: "block",
           }}
         >
-          [Project Name]
+          Markets, Inc.
         </Link>
         <span
           style={{
@@ -60,7 +58,7 @@ export default function Header() {
               style={{
                 fontSize: "0.875rem",
                 fontWeight: isActive ? 600 : 400,
-                color: "var(--accent-blue)",
+                color: "var(--accent-purple)",
                 textDecoration: "none",
               }}
             >

@@ -1,0 +1,43 @@
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1 1 140px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 140px;
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-secondary);
+  margin-bottom: 6px;
+}
+
+.value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.valueSm {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.4;
+}
+
+.category {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+  margin-top: 2px;
+}

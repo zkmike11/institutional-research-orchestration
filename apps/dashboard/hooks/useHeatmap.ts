@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import type { TreemapNode } from "@/lib/types/heatmap";
 
-export function useHeatmap(sector: string, period: string) {
+export function useHeatmap(
+  sector: string,
+  period: string,
+  startDate?: string | null,
+  endDate?: string | null
+) {
   const [data, setData] = useState<TreemapNode[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,9 +24,15 @@ export function useHeatmap(sector: string, period: string) {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `/api/heatmap?sector=${encodeURIComponent(sector)}&period=${encodeURIComponent(period)}`
-        );
+        const params = new URLSearchParams({
+          sector,
+          period,
+        });
+        if (startDate && endDate) {
+          params.set("startDate", startDate);
+          params.set("endDate", endDate);
+        }
+        const res = await fetch(`/api/heatmap?${params}`);
         if (!res.ok) throw new Error(`Failed to fetch heatmap: ${res.status}`);
         const json = await res.json();
         if (!cancelled) setData(json);
@@ -38,7 +49,7 @@ export function useHeatmap(sector: string, period: string) {
     return () => {
       cancelled = true;
     };
-  }, [sector, period]);
+  }, [sector, period, startDate, endDate]);
 
   return { data, loading, error };
 }

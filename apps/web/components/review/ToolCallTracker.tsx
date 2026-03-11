@@ -18,13 +18,13 @@ function humanizeToolName(name: string): string {
 
 export default function ToolCallTracker({
   toolCalls,
-  expectedTotal = 64,
+  expectedTotal = 35,
   status,
 }: ToolCallTrackerProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
   const completedCount = toolCalls.filter(
-    (tc) => tc.status === 'complete',
+    (tc) => tc?.status === 'complete',
   ).length;
 
   useEffect(() => {
@@ -55,27 +55,29 @@ export default function ToolCallTracker({
           <p style={styles.empty}>No tool calls recorded.</p>
         )}
 
-        {toolCalls.map((tc, i) => (
-          <div key={i} style={styles.row}>
-            <span style={styles.icon}>
-              {tc.status === 'complete' && (
-                <span style={{ color: 'var(--accent-green)' }}>&#10003;</span>
-              )}
-              {tc.status === 'running' && (
-                <span style={styles.spinner}>&#10227;</span>
-              )}
-              {tc.status === 'error' && (
-                <span style={{ color: 'var(--accent-red)' }}>&#10007;</span>
-              )}
-            </span>
+        {toolCalls.map((tc, i) =>
+          tc ? (
+            <div key={i} style={styles.row}>
+              <span style={styles.icon}>
+                {tc.status === 'complete' && (
+                  <span style={{ color: 'var(--accent-green)' }}>&#10003;</span>
+                )}
+                {tc.status === 'running' && (
+                  <span style={styles.spinner}>&#10227;</span>
+                )}
+                {tc.status === 'error' && (
+                  <span style={{ color: 'var(--accent-red)' }}>&#10007;</span>
+                )}
+              </span>
 
-            <span style={styles.name}>{humanizeToolName(tc.name)}</span>
+              <span style={styles.name}>{humanizeToolName(tc.name)}</span>
 
-            {tc.args && (
-              <span style={styles.args}> &mdash; {tc.args}</span>
-            )}
-          </div>
-        ))}
+              {tc.args && (
+                <span style={styles.args}> &mdash; {tc.args}</span>
+              )}
+            </div>
+          ) : null
+        )}
       </div>
     </div>
   );
@@ -119,7 +121,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   spinner: {
     display: 'inline-block',
-    color: 'var(--accent-blue)',
+    color: 'var(--accent-purple)',
     animation: 'spin 1s linear infinite',
   },
   name: {

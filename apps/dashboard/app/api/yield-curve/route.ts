@@ -1,20 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getMultiDateYieldCurve } from "@/lib/fred";
+import { getMultiDateYieldCurve, getYieldCurve } from "@/lib/fred";
 import { cache, CACHE_TTL } from "@/lib/cache";
 import type { YieldCurveSnapshot } from "@/lib/types/yield-curve";
 
-export async function GET(_request: NextRequest) {
+const CUSTOM_COLORS = ["#a855f7", "#ec4899", "#14b8a6", "#f97316", "#06b6d4"];
+
+export async function GET(request: NextRequest) {
   try {
+    // Always return the default 5 snapshots (cached)
     const cacheKey = "yield-curve-multi";
-    const cached = cache.get<YieldCurveSnapshot[]>(cacheKey);
-    if (cached) {
-      return NextResponse.json(cached);
+    let defaults = cache.get<YieldCurveSnapshot[]>(cacheKey);
+    if (!defaults) {
+      defaults = await getMultiDateYieldCurve();
+      cache.set(cacheKey, defaults, CACHE_TTL.YIELD_CURVE);
     }
 
-    const data = await getMultiDateYieldCurve();
+    // If custom dates requested, fetch those too
+    const datesParam = request.nextUrl.searchParams.get("dates");
+    if (datesParam) {
+      const dates = datesParam.split(",").filter(Boolean).slice(0, 5);
+      const customSnapshots = await Promise.all(
+        dates.map(async (date, i) => {
+          const points = await getYieldCurve(date);
+          return {
+            label: date,
+            color: CUSTOM_COLORS[i % CUSTOM_COLORS.length],
+            dashed: true,
+            points,
+          } satisfies YieldCurveSnapshot;
+        })
+      );
+      return NextResponse.json([...defaults, ...customSnapshots]);
+    }
 
-    cache.set(cacheKey, data, CACHE_TTL.YIELD_CURVE);
-    return NextResponse.json(data);
+    return NextResponse.json(defaults);
   } catch (error) {
     console.error("[API] /yield-curve error:", error);
     return NextResponse.json(

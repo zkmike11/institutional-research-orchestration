@@ -83,9 +83,12 @@ export async function GET(request: NextRequest) {
       })
     );
 
-    for (const r of histResults) {
+    for (let i = 0; i < histResults.length; i++) {
+      const r = histResults[i];
       if (r.status === "fulfilled" && r.value) {
         zScoreMap.set(r.value.sym, { z20: r.value.z20, z200: r.value.z200 });
+      } else if (r.status === "rejected") {
+        console.warn(`[API] /top-movers z-score failed for ${topSymbols[i]}:`, r.reason?.message ?? r.reason);
       }
     }
 

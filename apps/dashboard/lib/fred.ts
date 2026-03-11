@@ -2,6 +2,14 @@ import type { YieldCurveSnapshot, SpreadData } from "@/lib/types/yield-curve";
 
 const FRED_BASE = "https://api.stlouisfed.org/fred/series/observations";
 
+let _mockWarningShown = false;
+function warnMockData() {
+  if (!_mockWarningShown) {
+    console.warn("[FRED] No FRED_API_KEY set — serving mock yield curve data. Get a free key at https://fred.stlouisfed.org/docs/api/api_key.html");
+    _mockWarningShown = true;
+  }
+}
+
 const SERIES_IDS: Record<string, string> = {
   "3M": "DTB3",
   "2Y": "DGS2",
@@ -55,6 +63,7 @@ async function fetchLatestObservation(
 export async function getYieldCurve(date?: string) {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
+    warnMockData();
     return getMockYieldCurve();
   }
 
@@ -71,6 +80,7 @@ export async function getYieldCurve(date?: string) {
 export async function getMultiDateYieldCurve(): Promise<YieldCurveSnapshot[]> {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
+    warnMockData();
     return getMockMultiDateYieldCurve();
   }
 
@@ -96,6 +106,7 @@ export async function getSpreadHistory(
 ): Promise<SpreadData[]> {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
+    warnMockData();
     return getMockSpreadHistory(daysBack);
   }
 
@@ -142,7 +153,10 @@ export async function getYieldCurveHistory(
   daysBack: number = 90
 ) {
   const apiKey = process.env.FRED_API_KEY;
-  if (!apiKey) return [];
+  if (!apiKey) {
+    warnMockData();
+    return [];
+  }
 
   const start = new Date();
   start.setDate(start.getDate() - daysBack);

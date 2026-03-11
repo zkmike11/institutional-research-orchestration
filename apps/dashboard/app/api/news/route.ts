@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import yahooFinance from "yahoo-finance2";
+import YahooFinance from "yahoo-finance2";
+const yahooFinance = new YahooFinance();
 import { cache } from "@/lib/cache";
 
 const NEWS_TTL = 300_000; // 5 minutes
@@ -29,9 +30,10 @@ export async function GET(request: NextRequest) {
 
     for (const term of searchTerms) {
       try {
-        const result = await yahooFinance.search(term);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result: any = await yahooFinance.search(term);
         if (result.news) {
-          for (const article of result.news) {
+          for (const article of result.news as any[]) {
             // Deduplicate by title
             if (seen.has(article.title)) continue;
             seen.add(article.title);

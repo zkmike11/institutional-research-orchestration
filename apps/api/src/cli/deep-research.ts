@@ -21,7 +21,7 @@ if (!reviewId) {
   process.exit(1);
 }
 
-const summaryPath = `/Users/acct1/committee-orchestrator/apps/api/data/${reviewId}-summary.json`;
+const summaryPath = `${import.meta.dir}/../../data/${reviewId}-summary.json`;
 const file = Bun.file(summaryPath);
 
 if (!(await file.exists())) {

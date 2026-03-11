@@ -1,0 +1,76 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  padding: 16px;
+}
+
+.header {
+  margin-bottom: 12px;
+}
+
+.headerTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  color: var(--fg-secondary);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row:hover {
+  background-color: var(--bg-hover);
+}
+
+.chainName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  min-width: 90px;
+  width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barContainer {
+  flex: 1;
+  height: 18px;
+  position: relative;
+}
+
+.bar {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 16px;
+  border-radius: 3px;
+  opacity: 0.8;
+  transition: width 0.3s ease;
+}
+
+.tvlValue {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-width: 64px;
+  text-align: right;
+  color: var(--fg);
+}

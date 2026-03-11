@@ -1,4 +1,6 @@
-const API_BASE = typeof window === "undefined" ? "http://localhost:3001/api" : "/api";
+const API_BASE = typeof window === "undefined"
+  ? (process.env.API_URL || "http://localhost:3001/api")
+  : "/api";
 
 async function fetchJSON<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {

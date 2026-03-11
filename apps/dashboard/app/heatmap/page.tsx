@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTimePeriod } from "@/hooks/useTimePeriod";
 import { useHeatmap } from "@/hooks/useHeatmap";
 import TimePeriodSelector from "@/components/shared/TimePeriodSelector";
@@ -16,7 +16,23 @@ const PERIODS = ["1D", "1W", "1M", "3M", "6M", "YTD", "1Y"];
 export default function HeatmapPage() {
   const [sector, setSector] = useState("XLK");
   const { period, setPeriod } = useTimePeriod("1D");
-  const { data, loading, error } = useHeatmap(sector, period);
+  const [dateRange, setDateRange] = useState<{ start: string; end: string } | null>(null);
+
+  const { data, loading, error } = useHeatmap(
+    sector,
+    period,
+    dateRange?.start,
+    dateRange?.end
+  );
+
+  const handleDateRangeApply = useCallback((start: string, end: string) => {
+    setDateRange({ start, end });
+  }, []);
+
+  const handlePeriodChange = useCallback((p: string) => {
+    setDateRange(null);
+    setPeriod(p);
+  }, [setPeriod]);
 
   return (
     <div>
@@ -29,13 +45,10 @@ export default function HeatmapPage() {
           <SectorSelector selected={sector} onChange={setSector} />
           <TimePeriodSelector
             periods={PERIODS}
-            selected={period}
-            onChange={setPeriod}
+            selected={dateRange ? "" : period}
+            onChange={handlePeriodChange}
           />
-          <DateRangePicker onApply={(start, end) => {
-            // Date range overrides period selector
-            console.log("Date range applied:", start, end);
-          }} />
+          <DateRangePicker onApply={handleDateRangeApply} />
         </div>
       </div>
       {loading && !data ? (

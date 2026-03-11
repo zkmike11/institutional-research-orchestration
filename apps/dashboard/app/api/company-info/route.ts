@@ -24,9 +24,12 @@ export async function GET(request: NextRequest) {
     );
 
     const data = results
-      .map((result) =>
-        result.status === "fulfilled" ? result.value : null
-      )
+      .map((result, i) => {
+        if (result.status === "rejected") {
+          console.warn(`[API] /company-info failed for ${symbolsArray[i]}:`, result.reason?.message ?? result.reason);
+        }
+        return result.status === "fulfilled" ? result.value : null;
+      })
       .filter(Boolean);
 
     cache.set(cacheKey, data, CACHE_TTL.COMPANY_INFO);

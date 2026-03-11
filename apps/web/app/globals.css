@@ -9,7 +9,7 @@
   --border-hover: #2a2f40;
   --accent: #FD5400;
   --accent-hover: #e54d00;
-  --accent-blue: #2e90fa;
+  --accent-purple: #7c3aed;
   --accent-green: #22c55e;
   --accent-yellow: #eab308;
   --accent-red: #ef4444;
@@ -458,7 +458,7 @@ button:disabled {
   font-weight: 600;
 }
 
-/* ── Scrollbar (dark theme) ──────────────────────────────── */
+/* ── Scrollbar ──────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

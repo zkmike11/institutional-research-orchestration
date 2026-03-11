@@ -37,8 +37,17 @@ export function formatYield(value: number): string {
 }
 
 export function formatCompact(value: number): string {
+  if (value >= 1e12) return `${(value / 1e12).toFixed(1)}T`;
   if (value >= 1e9) return `${(value / 1e9).toFixed(1)}B`;
   if (value >= 1e6) return `${(value / 1e6).toFixed(1)}M`;
   if (value >= 1e3) return `${(value / 1e3).toFixed(1)}K`;
   return value.toFixed(0);
+}
+
+export function formatTvl(value: number): string {
+  return `$${formatCompact(value)}`;
+}
+
+export function formatApy(value: number): string {
+  return `${value.toFixed(2)}%`;
 }

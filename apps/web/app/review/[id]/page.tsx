@@ -10,12 +10,12 @@ export default function ReviewPage() {
   const { id } = useParams<{ id: string }>();
   const [review, setReview] = useState<Review | null>(null);
   const [toolCalls, setToolCalls] = useState<ToolCallEntry[]>([]);
-  const [expectedTotal, setExpectedTotal] = useState(64);
+  const [expectedTotal, setExpectedTotal] = useState(35);
   const [status, setStatus] = useState<string>('loading');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
 
-  // Fetch initial review state
+  // Fetch initial review state (renders immediately, doesn't depend on SSE)
   useEffect(() => {
     api
       .getReview(id)
@@ -23,12 +23,6 @@ export default function ReviewPage() {
         setReview(data);
         setToolCalls(data.toolCalls ?? []);
         setStatus(data.status);
-        if (data.status === 'failed' && data.toolCalls?.length > 0) {
-          const errorEntry = data.toolCalls.find((tc: ToolCallEntry) => tc.status === 'error');
-          if (errorEntry?.args) {
-            setErrorMessage(errorEntry.args);
-          }
-        }
       })
       .catch((err) => {
         setStatus('failed');
@@ -38,12 +32,10 @@ export default function ReviewPage() {
       });
   }, [id]);
 
-  // Connect to SSE stream when review is in-progress
+  // Connect to SSE stream directly to API (bypasses Next.js proxy which buffers SSE)
   useEffect(() => {
-    if (status !== 'running' && status !== 'loading') return;
-    if (status === 'loading') return;
-
-    const es = new EventSource(`/api/reviews/${id}/stream`);
+    const sseBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const es = new EventSource(`${sseBase}/api/reviews/${id}/stream`);
     eventSourceRef.current = es;
 
     es.onmessage = (event) => {
@@ -51,30 +43,41 @@ export default function ReviewPage() {
         const data = JSON.parse(event.data);
 
         switch (data.type) {
+          case 'init': {
+            if (data.review) {
+              setStatus(data.review.status);
+              setReview(data.review);
+              setToolCalls(data.review.toolCalls ?? []);
+              // If already complete, close the stream
+              if (data.review.status === 'complete' || data.review.status === 'failed') {
+                es.close();
+              }
+            }
+            break;
+          }
+
           case 'tool_call': {
-            const entry: ToolCallEntry = {
-              name: data.name,
-              args: data.args,
-              status: data.status,
-            };
             setToolCalls((prev) => {
               const updated = [...prev];
-              updated[data.index] = entry;
+              updated[data.index - 1] = {
+                name: data.name,
+                args: data.args,
+                status: data.status,
+              };
               return updated;
             });
             break;
           }
 
           case 'tool_complete': {
-            const entry: ToolCallEntry = {
-              name: data.name,
-              args: data.args,
-              status: data.status,
-              latency_ms: data.latency_ms,
-            };
             setToolCalls((prev) => {
               const updated = [...prev];
-              updated[data.index] = entry;
+              updated[data.index - 1] = {
+                name: data.name,
+                args: data.args,
+                status: data.status,
+                latency_ms: data.latency_ms,
+              };
               return updated;
             });
             break;
@@ -82,10 +85,10 @@ export default function ReviewPage() {
 
           case 'complete': {
             setStatus('complete');
-            setExpectedTotal(data.tool_calls_count ?? 64);
-            api.getReview(id).then((data) => {
-              setReview(data);
-              setToolCalls(data.toolCalls ?? []);
+            setExpectedTotal(data.tool_calls_count ?? 35);
+            api.getReview(id).then((updated) => {
+              setReview(updated);
+              setToolCalls(updated.toolCalls ?? []);
             });
             es.close();
             break;
@@ -115,7 +118,7 @@ export default function ReviewPage() {
     return () => {
       es.close();
     };
-  }, [id, status]);
+  }, [id]);
 
   if (status === 'loading') {
     return (
@@ -126,7 +129,7 @@ export default function ReviewPage() {
   }
 
   const protocolDisplay = review?.protocolName ?? 'Protocol';
-  const completedCount = toolCalls.filter((tc) => tc.status === 'complete').length;
+  const completedCount = toolCalls.filter((tc) => tc?.status === 'complete').length;
 
   return (
     <div style={styles.wrapper}>

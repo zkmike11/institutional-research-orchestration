@@ -131,7 +131,7 @@ export default function ReportPage() {
         <p style={{ color: "var(--accent-red)", marginBottom: "16px" }}>
           {error}
         </p>
-        <Link href="/" style={{ color: "var(--accent-blue)", fontSize: "0.875rem" }}>
+        <Link href="/" style={{ color: "var(--accent-purple)", fontSize: "0.875rem" }}>
           Back to Memo Library
         </Link>
       </div>
@@ -161,7 +161,7 @@ export default function ReportPage() {
           href="/"
           style={{
             fontSize: "0.875rem",
-            color: "var(--fg-secondary)",
+            color: "var(--accent-purple)",
             textDecoration: "none",
           }}
         >

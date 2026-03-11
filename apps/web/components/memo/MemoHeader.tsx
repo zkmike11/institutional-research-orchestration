@@ -110,35 +110,32 @@ export default function MemoHeader({ report }: MemoHeaderProps) {
         </p>
       )}
 
-      {/* Metrics */}
-      <dl
+      {/* Metrics table */}
+      <table
         style={{
-          display: "flex",
-          gap: "32px",
-          flexWrap: "wrap",
-          margin: 0,
+          width: "auto",
+          borderCollapse: "collapse",
+          fontSize: "0.875rem",
         }}
       >
-        {metrics.map((m) => (
-          <div key={m.label}>
-            <dt
-              style={{
-                fontSize: "0.7rem",
-                fontWeight: 600,
-                color: "var(--fg-secondary)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                marginBottom: "4px",
-              }}
-            >
-              {m.label}
-            </dt>
-            <dd style={{ fontSize: "0.95rem", fontWeight: 500, margin: 0 }}>
-              {m.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
+        <tbody>
+          {metrics.map((m) => (
+            <tr key={m.label}>
+              <td
+                style={{
+                  padding: "6px 24px 6px 0",
+                  color: "var(--fg-secondary)",
+                  fontWeight: 500,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {m.label}
+              </td>
+              <td style={{ padding: "6px 0", fontWeight: 500 }}>{m.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <hr
         style={{

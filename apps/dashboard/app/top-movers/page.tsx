@@ -14,14 +14,29 @@ import styles from "./TopMovers.module.css";
 
 const PERIODS = ["1D", "1W", "1M", "3M", "6M", "YTD", "1Y"];
 
+const MODE_OPTIONS = [
+  { label: "OUTRIGHT", value: "outright" },
+  { label: "VS SPY", value: "vs_spy" },
+];
+
+const EMBEDDED_PERIODS = ["1D", "1W", "1M", "3M", "6M", "1Y"];
+
 export default function TopMoversPage() {
   const [index, setIndex] = useState("ndx");
   const { period, setPeriod } = useTimePeriod("1D");
   const { gainers, losers, loading, error } = useTopMovers(index, period);
 
-  // Embedded sector/industry panels (matches Dean's reference)
-  const sectors = useSectors("sectors", "outright", period);
-  const industries = useSectors("industries", "outright", period);
+  // Per-panel state for embedded sector/industry panels
+  const [sectorsMode, setSectorsMode] = useState("outright");
+  const [sectorsPeriod, setSectorsPeriod] = useState("1D");
+  const [sectorsView, setSectorsView] = useState<"bars" | "lines">("bars");
+
+  const [indMode, setIndMode] = useState("outright");
+  const [indPeriod, setIndPeriod] = useState("1D");
+  const [indView, setIndView] = useState<"bars" | "lines">("bars");
+
+  const sectors = useSectors("sectors", sectorsMode, sectorsPeriod);
+  const industries = useSectors("industries", indMode, indPeriod);
 
   if (loading && !gainers) return <LoadingState />;
   if (error) return <ErrorState message={error} />;
@@ -49,10 +64,26 @@ export default function TopMoversPage() {
         <HorizontalBarPanel
           title="Equity Sectors"
           data={sectors.data ?? []}
+          modeOptions={MODE_OPTIONS}
+          mode={sectorsMode}
+          onModeChange={setSectorsMode}
+          periodOptions={EMBEDDED_PERIODS}
+          period={sectorsPeriod}
+          onPeriodChange={setSectorsPeriod}
+          viewMode={sectorsView}
+          onViewModeChange={setSectorsView}
         />
         <HorizontalBarPanel
           title="Industry Groups"
           data={industries.data ?? []}
+          modeOptions={MODE_OPTIONS}
+          mode={indMode}
+          onModeChange={setIndMode}
+          periodOptions={EMBEDDED_PERIODS}
+          period={indPeriod}
+          onPeriodChange={setIndPeriod}
+          viewMode={indView}
+          onViewModeChange={setIndView}
         />
       </div>
     </div>

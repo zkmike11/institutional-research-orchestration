@@ -109,31 +109,43 @@ export async function runDemoReview(reviewId: string, protocolName: string, _not
       }
     }
 
-    // Load the Morpho memo as demo content (always Morpho — it's a demo)
-    const dataDir = resolve(import.meta.dir, "../../data");
-    const memoFile = Bun.file(resolve(dataDir, "ff14b47b-727d-403e-92f2-35b241e20fa0-memo.md"));
-    const memoText = await memoFile.text();
+    // Reuse existing demo report if one exists (prevents duplicate Morpho entries)
+    const [existingDemo] = await db
+      .select()
+      .from(schema.reports)
+      .where(eq(schema.reports.isDemo, true))
+      .limit(1);
 
-    const recommendation = memoText.match(/Recommendation:\s*(BUY|WATCH|HOLD|REDUCE|EXIT)/i)?.[1]?.toUpperCase() || "WATCH";
-    const conviction = memoText.match(/Conviction:\s*(LOW|MEDIUM|HIGH)/i)?.[1]?.toUpperCase() || "MEDIUM";
-    const phaseMatch = memoText.match(/Phase\s*(\d)/i);
-    const activismMatch = memoText.match(/Activism\s*[Ss]core[:\s]*(\d+)/i);
-    const positionMatch = memoText.match(/Position\s*[Ss]ize[:\s]*([^\n]+)/i);
+    let report;
+    if (existingDemo) {
+      report = existingDemo;
+    } else {
+      // Load the Morpho memo as demo content (always Morpho — it's a demo)
+      const dataDir = resolve(import.meta.dir, "../../data");
+      const memoFile = Bun.file(resolve(dataDir, "ff14b47b-727d-403e-92f2-35b241e20fa0-memo.md"));
+      const memoText = await memoFile.text();
 
-    const [report] = await db
-      .insert(schema.reports)
-      .values({
-        protocolName: "Morpho",
-        recommendation,
-        conviction,
-        maturationPhase: phaseMatch ? `Phase ${phaseMatch[1]}` : null,
-        activismScore: activismMatch ? parseInt(activismMatch[1]) : null,
-        positionSize: positionMatch ? positionMatch[1].trim() : "",
-        content: { raw: memoText },
-        toolCallsCount: demoToolCalls.length,
-        isDemo: true,
-      })
-      .returning();
+      const recommendation = memoText.match(/Recommendation:\s*(BUY|WATCH|HOLD|REDUCE|EXIT)/i)?.[1]?.toUpperCase() || "WATCH";
+      const conviction = memoText.match(/Conviction:\s*(LOW|MEDIUM|HIGH)/i)?.[1]?.toUpperCase() || "MEDIUM";
+      const phaseMatch = memoText.match(/Phase\s*(\d)/i);
+      const activismMatch = memoText.match(/Activism\s*[Ss]core[:\s]*(\d+)/i);
+      const positionMatch = memoText.match(/Position\s*[Ss]ize[:\s]*([^\n]+)/i);
+
+      [report] = await db
+        .insert(schema.reports)
+        .values({
+          protocolName: "Morpho",
+          recommendation,
+          conviction,
+          maturationPhase: phaseMatch ? `Phase ${phaseMatch[1]}` : null,
+          activismScore: activismMatch ? parseInt(activismMatch[1]) : null,
+          positionSize: positionMatch ? positionMatch[1].trim() : "",
+          content: { raw: memoText },
+          toolCallsCount: demoToolCalls.length,
+          isDemo: true,
+        })
+        .returning();
+    }
 
     await db
       .update(schema.reviews)

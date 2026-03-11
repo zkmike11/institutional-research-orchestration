@@ -15,7 +15,7 @@ if (!reviewId) {
   process.exit(1);
 }
 
-const dataPath = `/Users/acct1/committee-orchestrator/apps/api/data/${reviewId}.json`;
+const dataPath = `${import.meta.dir}/../../data/${reviewId}.json`;
 const file = Bun.file(dataPath);
 
 if (!(await file.exists())) {
@@ -238,7 +238,7 @@ const summary: Record<string, any> = {
   },
 };
 
-const outPath = `/Users/acct1/committee-orchestrator/apps/api/data/${reviewId}-summary.json`;
+const outPath = `${import.meta.dir}/../../data/${reviewId}-summary.json`;
 await Bun.write(outPath, JSON.stringify(summary, null, 2));
 
 const size = (await Bun.file(outPath).size);

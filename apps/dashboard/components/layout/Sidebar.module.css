@@ -1,13 +1,11 @@
 .sidebar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
   width: var(--sidebar-width);
   height: 100vh;
   background: var(--bg-card);
   border-right: 1px solid var(--border);
   overflow-y: auto;
-  z-index: 100;
 }
 
 .navList {

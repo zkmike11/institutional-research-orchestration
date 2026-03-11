@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Report } from "@/lib/api";
 
@@ -33,16 +34,41 @@ function formatPhase(phase: string | null): string {
 export function MemoList({ reports }: Props) {
   const router = useRouter();
 
-  if (reports.length === 0) {
-    return (
-      <div className="empty-state">
-        No reports yet. Start a review to generate your first memo.
-      </div>
-    );
-  }
-
   return (
-    <div className="table-wrap">
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}
+      >
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 700 }}>Memo Library</h2>
+        <Link
+          href="/review/new"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            padding: "8px 16px",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            color: "#fff",
+            backgroundColor: "var(--accent)",
+            borderRadius: "6px",
+            textDecoration: "none",
+          }}
+        >
+          New Memo
+        </Link>
+      </div>
+
+      {reports.length === 0 ? (
+        <div className="empty-state">
+          No memos yet. Start a review to generate your first memo.
+        </div>
+      ) : (
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -84,6 +110,8 @@ export function MemoList({ reports }: Props) {
           ))}
         </tbody>
       </table>
+    </div>
+      )}
     </div>
   );
 }

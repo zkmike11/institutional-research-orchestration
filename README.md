@@ -1,6 +1,6 @@
-# Committee Orchestrator
+# Institutional Research Orchestrator
 
-AI-powered investment committee system that produces institutional-quality DeFi protocol research memos. Inspired by [Markets, Inc.](https://x.com/deaneigenmann) by Dean Eigenmann.
+AI-powered investment committee system that produces institutional-quality DeFi protocol research memos.
 
 A single AI orchestrator embodies 14 specialist roles (Tokenomics Analyst, Governance Analyst, Risk Officer, Devil's Advocate, etc.) and produces structured 18-section investment memos with inline data citations from live market data.
 

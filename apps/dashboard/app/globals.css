@@ -1,6 +1,6 @@
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  /* Base palette — matched to Dean's Markets Inc */
+  /* Base palette */
   --bg: #0b0e14;
   --bg-card: #141820;
   --bg-card-elevated: #1a1f2e;

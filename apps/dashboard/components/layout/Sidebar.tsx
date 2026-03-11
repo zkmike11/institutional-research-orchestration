@@ -10,7 +10,7 @@ interface NavItem {
   icon: React.ReactNode;
 }
 
-/* ── Dean's original 8 sidebar items ────────────────────── */
+/* ── Primary nav items ──────────────────────────────────── */
 const primaryItems: NavItem[] = [
   {
     label: "Performance",
@@ -105,7 +105,7 @@ const primaryItems: NavItem[] = [
   },
 ];
 
-/* ── Analysis views (not in Dean's sidebar) ─────────────── */
+/* ── Analysis views ─────────────────────────────────────── */
 const analysisItems: NavItem[] = [
   {
     label: "Scanner",
@@ -158,6 +158,22 @@ const analysisItems: NavItem[] = [
   },
 ];
 
+/* ── Crypto views ──────────────────────────────────────── */
+const cryptoItems: NavItem[] = [
+  {
+    label: "DeFi",
+    href: "/defi",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="9" r="7" />
+        <path d="M6.5 7h3a1.5 1.5 0 010 3H7a1.5 1.5 0 000 3h4" />
+        <line x1="9" y1="4.5" x2="9" y2="6" />
+        <line x1="9" y1="13" x2="9" y2="14.5" />
+      </svg>
+    ),
+  },
+];
+
 function NavLink({ item, isActive }: { item: NavItem; isActive: boolean }) {
   return (
     <li>
@@ -184,6 +200,11 @@ export default function Sidebar() {
         <li className={styles.sectionDivider} />
         <li className={styles.sectionLabel}>Analysis</li>
         {analysisItems.map((item) => (
+          <NavLink key={item.href} item={item} isActive={pathname.startsWith(item.href)} />
+        ))}
+        <li className={styles.sectionDivider} />
+        <li className={styles.sectionLabel}>Crypto</li>
+        {cryptoItems.map((item) => (
           <NavLink key={item.href} item={item} isActive={pathname.startsWith(item.href)} />
         ))}
       </ul>

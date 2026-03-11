@@ -1,0 +1,20 @@
+.header {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.header:hover {
+  color: var(--fg);
+}
+
+.inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrow {
+  font-size: 0.55rem;
+  opacity: 0.8;
+}

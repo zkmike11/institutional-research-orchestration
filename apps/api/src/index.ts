@@ -9,7 +9,7 @@ import { toolsRouter } from "./routes/tools.js";
 
 const app = new Hono().basePath("/api");
 
-app.use("*", cors({ origin: "http://localhost:3000" }));
+app.use("*", cors({ origin: process.env.CORS_ORIGIN || "http://localhost:3000" }));
 
 app.route("/reports", reportsRouter);
 app.route("/reviews", reviewsRouter);
@@ -25,6 +25,6 @@ if (!process.env.ANTHROPIC_API_KEY) {
 }
 
 export default {
-  port: 3001,
+  port: parseInt(process.env.PORT || "3001"),
   fetch: app.fetch,
 };
