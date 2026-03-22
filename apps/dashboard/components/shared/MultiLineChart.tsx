@@ -17,7 +17,7 @@ interface MultiLineChartProps {
 const SERIES_COLORS = [
   "#ef4444", // red
   "#f59e0b", // orange
-  "#3b82f6", // blue
+  "#14b8a6", // teal
   "#22c55e", // green
   "#d1d5db", // grey/white
 ];

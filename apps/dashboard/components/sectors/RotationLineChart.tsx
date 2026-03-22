@@ -15,7 +15,7 @@ interface RotationLineChartProps {
   periodOptions?: string[];
 }
 
-const ROTATION_COLORS = ["#ef4444", "#f59e0b", "#3b82f6", "#22c55e", "#d1d5db"];
+const ROTATION_COLORS = ["#ef4444", "#f59e0b", "#14b8a6", "#22c55e", "#d1d5db"];
 
 export default function RotationLineChart({
   data,

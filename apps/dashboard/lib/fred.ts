@@ -19,7 +19,7 @@ const SERIES_IDS: Record<string, string> = {
 };
 
 const SNAPSHOT_OFFSETS: { label: string; daysBack: number; color: string; dashed: boolean }[] = [
-  { label: "Current", daysBack: 0, color: "#3b82f6", dashed: false },
+  { label: "Current", daysBack: 0, color: "#14b8a6", dashed: false },
   { label: "1W ago", daysBack: 7, color: "#ef4444", dashed: true },
   { label: "1M ago", daysBack: 30, color: "#f59e0b", dashed: true },
   { label: "3M ago", daysBack: 90, color: "#6b7280", dashed: true },
@@ -193,7 +193,7 @@ function getMockMultiDateYieldCurve(): YieldCurveSnapshot[] {
   return [
     {
       label: "Current",
-      color: "#3b82f6",
+      color: "#14b8a6",
       dashed: false,
       points: [
         { maturity: "3M", yield: 3.6 },

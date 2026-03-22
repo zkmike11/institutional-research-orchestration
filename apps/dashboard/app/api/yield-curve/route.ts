@@ -3,7 +3,7 @@ import { getMultiDateYieldCurve, getYieldCurve } from "@/lib/fred";
 import { cache, CACHE_TTL } from "@/lib/cache";
 import type { YieldCurveSnapshot } from "@/lib/types/yield-curve";
 
-const CUSTOM_COLORS = ["#a855f7", "#ec4899", "#14b8a6", "#f97316", "#06b6d4"];
+const CUSTOM_COLORS = ["#14b8a6", "#f472b6", "#38bdf8", "#f97316", "#06b6d4"];
 
 export async function GET(request: NextRequest) {
   try {

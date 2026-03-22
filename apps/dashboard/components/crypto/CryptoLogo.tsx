@@ -4,11 +4,11 @@ import { useState } from "react";
 import styles from "./CryptoLogo.module.css";
 
 const PALETTE = [
-  "#2e90fa",
+  "#14b8a6",
   "#22c55e",
   "#f97316",
-  "#a855f7",
-  "#ec4899",
+  "#0d9488",
+  "#f472b6",
   "#eab308",
   "#ef4444",
   "#06b6d4",

@@ -39,7 +39,7 @@ export const FACTOR_ETFS = [
 export const ROTATION_PAIRS = [
   { name: "Software / Nasdaq", numerator: "IGV", denominator: "QQQ", color: "#22c55e" },
   { name: "Tech / Consumer St...", numerator: "XLK", denominator: "XLP", color: "#f59e0b" },
-  { name: "Russell / Nasdaq", numerator: "IWM", denominator: "QQQ", color: "#3b82f6" },
-  { name: "Bitcoin / Nasdaq", numerator: "IBIT", denominator: "QQQ", color: "#a855f7" },
+  { name: "Russell / Nasdaq", numerator: "IWM", denominator: "QQQ", color: "#14b8a6" },
+  { name: "Bitcoin / Nasdaq", numerator: "IBIT", denominator: "QQQ", color: "#0d9488" },
   { name: "Semis / Software", numerator: "SMH", denominator: "IGV", color: "#ef4444" },
 ] as const;

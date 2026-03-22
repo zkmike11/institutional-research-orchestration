@@ -15,7 +15,7 @@ export interface WatchlistState {
 }
 
 export const DEFAULT_WATCHLIST: WatchlistState = {
-  benchmarks: [{ symbol: "^NDX", color: "#2e90fa" }],
+  benchmarks: [{ symbol: "^NDX", color: "#14b8a6" }],
   groups: [
     {
       id: "space",

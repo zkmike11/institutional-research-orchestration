@@ -1,7 +1,7 @@
 export const SCANNER_CONFIG = {
   EQUITIES: {
     name: "EQUITIES",
-    color: "#3b82f6",
+    color: "#14b8a6",
     assets: [
       { symbol: "^GSPC", name: "S&P 500", ticker: "^GSPC" },
       { symbol: "^NDX", name: "NASDAQ 100", ticker: "^NDX" },
@@ -11,7 +11,7 @@ export const SCANNER_CONFIG = {
   },
   RATES: {
     name: "RATES",
-    color: "#3b82f6",
+    color: "#14b8a6",
     assets: [
       { symbol: "^IRX", name: "3-Month T-Bill", ticker: "^IRX" },
       { symbol: "^TNX", name: "10-Year Treasury", ticker: "^TNX" },
@@ -46,7 +46,7 @@ export const SCANNER_CONFIG = {
   },
   GLOBAL_ANCHORS: {
     name: "GLOBAL ANCHORS",
-    color: "#3b82f6",
+    color: "#14b8a6",
     assets: [
       { symbol: "BTC-USD", name: "Bitcoin", ticker: "BTC-USD" },
     ],
